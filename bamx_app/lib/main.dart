@@ -10,7 +10,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Servitum',
+      title: 'BAMX',
+      theme: ThemeData(
+          errorColor: Colors.red,
+          appBarTheme: AppBarTheme(
+              titleTextStyle: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+          fontFamily: 'Inter',
+          textTheme: TextTheme(
+              titleMedium: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17)),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.red,
+          ).copyWith(
+            secondary: Colors.grey,
+          )),
       home: const MyHomePage(),
     );
   }
@@ -23,14 +41,15 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Servitum'),
+        centerTitle: true,
+        title: Text(
+          'BAMX',
+        ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Card(
-            child: Text('Hola hola'),
+            child: Text('Saludos'),
             elevation: 5,
             color: Colors.red,
           )
