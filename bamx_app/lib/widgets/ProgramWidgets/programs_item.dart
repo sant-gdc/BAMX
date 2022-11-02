@@ -30,7 +30,7 @@ class ProgramsItem extends StatelessWidget {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .12,
+            height: MediaQuery.of(context).size.height * .10,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadiusDirectional.only(

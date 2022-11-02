@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
-import 'package:bamx_app/programs_screen.dart';
+import 'package:bamx_app/widgets/ProgramWidgets/programs_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = [
     Text('Eventos'),
-    Text('Programas'),
+    ProgramsScreen(),
     Text('Calendario'),
   ];
 
