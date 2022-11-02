@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, sort_child_properties_last, prefer_const_literals_to_create_immutables
+
+import 'package:bamx_app/programs_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,6 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'BAMX',
       theme: ThemeData(
           errorColor: Colors.red,
+          // ignore: prefer_const_constructors
           appBarTheme: AppBarTheme(
               titleTextStyle: TextStyle(
                   fontFamily: 'Inter',
