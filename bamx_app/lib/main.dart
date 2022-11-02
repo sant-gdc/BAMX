@@ -29,13 +29,31 @@ class MyApp extends StatelessWidget {
           ).copyWith(
             secondary: Colors.grey,
           )),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = [
+    Text('Eventos'),
+    Text('Programas'),
+    Text('Calendario'),
+  ];
+
+  void _onViewTappedIcon(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +64,23 @@ class MyHomePage extends StatelessWidget {
           'BAMX',
         ),
       ),
-      body: Column(
-        children: [
-          Card(
-            child: Text('Saludos'),
-            elevation: 5,
-            color: Colors.red,
-          )
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.collections_bookmark_outlined),
+              label: 'Programs'),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today), label: 'Calendar'),
         ],
+        currentIndex: _selectedIndex,
+        onTap: _onViewTappedIcon,
       ),
     );
   }
