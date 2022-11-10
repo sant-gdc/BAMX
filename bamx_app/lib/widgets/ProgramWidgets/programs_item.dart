@@ -5,33 +5,27 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import './program_brief.dart';
 import './program.long.dart';
 
-class ProgramItem extends StatefulWidget {
+class ProgramItem extends StatelessWidget {
   final String title;
   final String image;
   final Function setIndex;
   final int index;
+  final bool selected;
 
-  ProgramItem(this.title, this.image, this.setIndex, this.index);
-
-  @override
-  State<ProgramItem> createState() => _ProgramItemState();
-}
-
-class _ProgramItemState extends State<ProgramItem> {
-  bool selected = true;
+  ProgramItem(
+      {required this.title,
+      required this.image,
+      required this.setIndex,
+      required this.index,
+      required this.selected});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        setState(() {
-          selected = !selected;
-          widget.setIndex(widget.index);
-        });
+        setIndex(index, true);
       },
-      child: selected
-          ? ProgramBrief(widget.title, widget.image)
-          : ProgramLong(widget.title, widget.image),
+      child: selected ? ProgramBrief(title, image) : ProgramLong(title, image),
     );
   }
 }

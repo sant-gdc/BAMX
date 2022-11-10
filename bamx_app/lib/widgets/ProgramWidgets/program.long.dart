@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class ProgramLong extends StatelessWidget {
@@ -28,7 +30,7 @@ class ProgramLong extends StatelessWidget {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .1,
+            height: MediaQuery.of(context).size.height * .13,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadiusDirectional.only(
@@ -40,13 +42,87 @@ class ProgramLong extends StatelessWidget {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * .06,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
+            height: MediaQuery.of(context).size.height * .52,
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Colecta de Ropa",
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21),
+                        textAlign: TextAlign.start,
+                      ),
+                      Icon(
+                        Icons.notifications_none,
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.info_outline,
+                          ),
+                        ),
+                        Text(
+                          "De que se trata la colecta de ropa...",
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Icon(
+                          Icons.phone,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Número de contacto para más información.",
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 23),
+                    child: Text(
+                      "Próximos eventos...",
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 21),
+                      textAlign: TextAlign.start,
+                    ),
+                  )
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
