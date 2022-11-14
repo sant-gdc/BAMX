@@ -11,7 +11,7 @@ class EventScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          Card(
+          const Card(
             color: Colors.red,
             child: Text('Search'),
           ),
@@ -19,10 +19,5 @@ class EventScreen extends StatelessWidget {
         ],
       ),
     );
-    /*const EventCard(
-      'https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06',
-      'Colecta de Ropa',
-      'Colecta',
-    );*/
   }
 }

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../models/event.dart';
 
 class EventCard extends StatelessWidget {
-  final String image;
-  final String name;
-  final String type;
+  final Event event;
 
-  const EventCard(this.image, this.name, this.type, {super.key});
+  EventCard(this.event, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
+    return Card(
+      elevation: 0,
       child: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-        height: 200,
+        //height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.grey,
               spreadRadius: 1,
               blurRadius: 12,
@@ -37,33 +38,85 @@ class EventCard extends StatelessWidget {
                   topEnd: Radius.circular(25),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage(image),
+                  image: NetworkImage(event.img),
                   fit: BoxFit.fill,
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: <Widget>[
-                  const Icon(Icons.archive, size: 70, color: Colors.black),
-                  const SizedBox(width: 30),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            ExpansionTile(
+              title: Text(event.title),
+              subtitle: Text(event.type),
+              leading: const Icon(Icons.archive, size: 50),
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                  ),
+                  child: Column(
                     children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleMedium,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.pin_drop),
+                            Text(event.location),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        type,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.calendar_month),
+                            Text(
+                              DateFormat.yMMMMEEEEd()
+                                  .add_jm()
+                                  .format(event.date),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.notes),
+                            Text(event.details),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star_border_rounded),
+                            const Text('Esta actividad otorga'),
+                            Text(
+                              ' ${event.points.toString()} Servicoins',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text(
+                            'Voluntarios: ${event.enrolled}/${event.volunteers}'),
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(15),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Registrate'),
+                  ),
+                )
+              ],
             ),
           ],
         ),
