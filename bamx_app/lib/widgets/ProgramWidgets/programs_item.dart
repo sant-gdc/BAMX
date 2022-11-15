@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import './program_brief.dart';
-import './program.long.dart';
+import 'program_long.dart';
 
 class ProgramItem extends StatelessWidget {
   final String title;

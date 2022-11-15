@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 
+import './carrousel.dart';
+
 class ProgramLong extends StatelessWidget {
   final String title;
   final String image;
 
-  ProgramLong(this.title, this.image);
+  const ProgramLong(this.title, this.image, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class ProgramLong extends StatelessWidget {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * .52,
+            height: MediaQuery.of(context).size.height * .54,
             alignment: Alignment.topLeft,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -118,7 +120,8 @@ class ProgramLong extends StatelessWidget {
                           fontSize: 21),
                       textAlign: TextAlign.start,
                     ),
-                  )
+                  ),
+                  Expanded(child: Carrousel()),
                 ],
               ),
             ),

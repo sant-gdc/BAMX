@@ -36,19 +36,22 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
       crossAxisCount: 2,
       itemCount: DUMMY_CATEGORIES.length,
       itemBuilder: (context, index) {
-        return chngIndx == index
-            ? ProgramItem(
-                title: DUMMY_CATEGORIES[index].title,
-                image: DUMMY_CATEGORIES[index].image,
-                setIndex: setIndex,
-                index: index,
-                selected: false)
-            : ProgramItem(
-                title: DUMMY_CATEGORIES[index].title,
-                image: DUMMY_CATEGORIES[index].image,
-                setIndex: setIndex,
-                index: index,
-                selected: true);
+        return AnimatedContainer(
+            duration: const Duration(seconds: 10),
+            curve: Curves.easeInOutCubic,
+            child: chngIndx == index
+                ? ProgramItem(
+                    title: DUMMY_CATEGORIES[index].title,
+                    image: DUMMY_CATEGORIES[index].image,
+                    setIndex: setIndex,
+                    index: index,
+                    selected: false)
+                : ProgramItem(
+                    title: DUMMY_CATEGORIES[index].title,
+                    image: DUMMY_CATEGORIES[index].image,
+                    setIndex: setIndex,
+                    index: index,
+                    selected: true));
       },
     );
   }
