@@ -11,7 +11,7 @@ class EventsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 20),
-      height: MediaQuery.of(context).size.height * .7,
+      height: MediaQuery.of(context).size.height * .75,
       child: ListView.builder(
         itemBuilder: (ctx, index) {
           return EventCard(events[index]);

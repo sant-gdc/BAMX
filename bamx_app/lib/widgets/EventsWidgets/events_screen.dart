@@ -5,6 +5,7 @@ import './events_list.dart';
 
 class EventScreen extends StatelessWidget {
   const EventScreen({super.key});
+  //TODO: Fetch events info from database
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,25 @@ class EventScreen extends StatelessWidget {
             color: Colors.red,
             child: Text('Search'),
           ),
-          EventsList(dummyEvents),
+          Stack(
+            children: [
+              EventsList(dummyEvents),
+              Positioned.fill(
+                bottom: 10,
+                right: 20,
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                      onPressed: () {},
+                      backgroundColor: Colors.redAccent,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                      )),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

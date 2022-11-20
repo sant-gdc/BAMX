@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/event.dart';
+import 'confirm.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
 
   EventCard(this.event, {super.key});
+
+  void confirmRegister(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const ConfirmAlert(
+            'Confirmar Registro',
+            '¿Segur@ que desea registrarse en ese evento?',
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +124,7 @@ class EventCard extends StatelessWidget {
                   width: double.infinity,
                   margin: const EdgeInsets.all(15),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => confirmRegister(context),
                     child: const Text('Registrate'),
                   ),
                 )
