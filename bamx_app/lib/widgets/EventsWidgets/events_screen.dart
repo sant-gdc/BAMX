@@ -11,11 +11,8 @@ class EventScreen extends StatelessWidget {
   //TODO: Fetch events info from database
 
   void createEVent(BuildContext context) {
-    /*showCupertinoModalPopup(
-      context: context,
-      builder: (context) => Text('hola'),
-    );*/
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (_) {
         return GestureDetector(
