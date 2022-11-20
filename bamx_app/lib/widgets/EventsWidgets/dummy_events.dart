@@ -6,7 +6,7 @@ List<Event> dummyEvents = [
     title: "Colecta de alimentos",
     type: "Alimentos",
     img:
-        "https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06",
+        "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
     details: "Lorem ipsum",
     location: "Guadalajara",
     date: DateTime.now(),
@@ -19,7 +19,7 @@ List<Event> dummyEvents = [
     title: "Colecta de medicinas",
     type: "Medicinas",
     img:
-        "https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06",
+        "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
     details: "Lorem ipsum",
     location: "Guadalajara",
     date: DateTime.now(),
@@ -32,7 +32,7 @@ List<Event> dummyEvents = [
     title: "Colecta de Ropa",
     type: "Ropa",
     img:
-        "https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06",
+        "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
     details: "Lorem ipsum",
     location: "Guadalajara",
     date: DateTime.now(),
@@ -45,7 +45,7 @@ List<Event> dummyEvents = [
     title: "Voluntario de repartición",
     type: "Reprto de alimentos",
     img:
-        "https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06",
+        "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
     details: "Lorem ipsum",
     location: "Guadalajara",
     date: DateTime.now(),

@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
 
+import './add_event_form.dart';
 import './dummy_events.dart';
 import './events_list.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({super.key});
+  final bool admin;
+
+  const EventScreen(this.admin, {super.key});
   //TODO: Fetch events info from database
+
+  void createEVent(BuildContext context) {
+    /*showCupertinoModalPopup(
+      context: context,
+      builder: (context) => Text('hola'),
+    );*/
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: const AddEventForm(),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +44,15 @@ class EventScreen extends StatelessWidget {
                 right: 20,
                 child: Align(
                   alignment: Alignment.bottomRight,
-                  child: FloatingActionButton(
-                      onPressed: () {},
-                      backgroundColor: Colors.redAccent,
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.black,
-                      )),
+                  child: admin
+                      ? FloatingActionButton(
+                          onPressed: () => createEVent(context),
+                          backgroundColor: Colors.redAccent,
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.black,
+                          ))
+                      : const Text(''),
                 ),
               ),
             ],
