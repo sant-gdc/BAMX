@@ -16,7 +16,14 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   final _searchQuery = TextEditingController();
-  List<Event> _eventList = dummyEvents;
+  late List<Event> _eventList;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _eventList = dummyEvents;
+  }
 
   //TODO: Fetch events info from database
   void _createEVent(BuildContext context) {
@@ -42,7 +49,7 @@ class _EventScreenState extends State<EventScreen> {
       return eventTitle.contains(input);
     }).toList();
 
-    if (resultEvents.isEmpty) {
+    if (query.isEmpty) {
       setState(() => _eventList = dummyEvents);
       _searchQuery.clear();
     } else {
