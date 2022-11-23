@@ -18,7 +18,9 @@ class EventScreen extends StatelessWidget {
         return GestureDetector(
           onTap: () {},
           behavior: HitTestBehavior.opaque,
-          child: const AddEventForm(),
+          child: const AddEventForm(
+            isEvento: true,
+          ),
         );
       },
     );
@@ -37,7 +39,7 @@ class EventScreen extends StatelessWidget {
             children: [
               EventsList(dummyEvents),
               Positioned.fill(
-                bottom: 10,
+                bottom: MediaQuery.of(context).size.height * 0.021,
                 right: 20,
                 child: Align(
                   alignment: Alignment.bottomRight,

@@ -8,7 +8,7 @@ const DUMMY_CATEGORIES = const [
     id: 'p1',
     title: 'Ropa',
     image:
-        'https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06',
+        'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
   ),
   Program(
     id: 'p2',
@@ -25,7 +25,7 @@ const DUMMY_CATEGORIES = const [
     id: 'p4',
     title: 'Ropa',
     image:
-        'https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06',
+        'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
   ),
   Program(
     id: 'p5',
@@ -42,7 +42,7 @@ const DUMMY_CATEGORIES = const [
     id: 'p7',
     title: 'Ropa',
     image:
-        'https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06',
+        'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
   ),
   Program(
     id: 'p8',
@@ -59,7 +59,7 @@ const DUMMY_CATEGORIES = const [
     id: 'p7',
     title: 'Ropa',
     image:
-        'https://www.centronia.org/2016/wp-content/uploads/2016/11/DSCF7782-580x345.jpg?e7ce06&e7ce06',
+        'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
   ),
   Program(
     id: 'p8',

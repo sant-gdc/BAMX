@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = [
     EventScreen(true),
-    ProgramsScreen(),
+    ProgramsScreen(admin: true),
     Text('Calendario'),
   ];
 
