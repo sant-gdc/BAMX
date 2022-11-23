@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import '../../models/event.dart';
 
 import './add_event_form.dart';
 import './dummy_events.dart';
 import './events_list.dart';
 
-class EventScreen extends StatelessWidget {
+class EventScreen extends StatefulWidget {
   final bool admin;
 
   const EventScreen(this.admin, {super.key});
-  //TODO: Fetch events info from database
 
-  void createEVent(BuildContext context) {
+  @override
+  State<EventScreen> createState() => _EventScreenState();
+}
+
+class _EventScreenState extends State<EventScreen> {
+  final _searchQuery = TextEditingController();
+  List<Event> _eventList = dummyEvents;
+
+  //TODO: Fetch events info from database
+  void _createEVent(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -24,6 +33,21 @@ class EventScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _searchEvent(String query) {
+    final resultEvents = _eventList.where((event) {
+      final eventTitle = event.title.toLowerCase();
+      final input = query.toLowerCase();
+      return eventTitle.contains(input);
+    }).toList();
+
+    if (resultEvents.isEmpty) {
+      setState(() => _eventList = dummyEvents);
+      _searchQuery.clear();
+    } else {
+      setState(() => _eventList = resultEvents);
+    }
   }
 
   @override
@@ -44,9 +68,9 @@ class EventScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: admin
+      floatingActionButton: widget.admin
           ? FloatingActionButton(
-              onPressed: () => createEVent(context),
+              onPressed: () => _createEVent(context),
               backgroundColor: Colors.redAccent,
               child: const Icon(
                 Icons.add,
