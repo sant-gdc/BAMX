@@ -28,36 +28,31 @@ class EventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Card(
-            color: Colors.red,
-            child: Text('Search'),
-          ),
-          Stack(
-            children: [
-              EventsList(dummyEvents),
-              Positioned.fill(
-                bottom: MediaQuery.of(context).size.height * 0.021,
-                right: 20,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: admin
-                      ? FloatingActionButton(
-                          onPressed: () => createEVent(context),
-                          backgroundColor: Colors.redAccent,
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.black,
-                          ))
-                      : const Text(''),
-                ),
-              ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Card(
+              color: Colors.red,
+              child: Text('Search'),
+            ),
+            Stack(
+              children: [
+                EventsList(dummyEvents),
+              ],
+            ),
+          ],
+        ),
       ),
+      floatingActionButton: admin
+          ? FloatingActionButton(
+              onPressed: () => createEVent(context),
+              backgroundColor: Colors.redAccent,
+              child: const Icon(
+                Icons.add,
+                color: Colors.black,
+              ))
+          : const Text(''),
     );
   }
 }

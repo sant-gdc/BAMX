@@ -38,46 +38,35 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Material(
-        child: Stack(
-          children: [
-            StaggeredGridView.countBuilder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-              padding: EdgeInsets.all(15),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              crossAxisCount: 2,
-              itemCount: DUMMY_CATEGORIES.length,
-              itemBuilder: (context, index) {
-                return ProgramItem(
-                  title: DUMMY_CATEGORIES[index].title,
-                  image: DUMMY_CATEGORIES[index].image,
-                  index: index,
-                );
-              },
-            ),
-            Positioned.fill(
-              bottom: MediaQuery.of(context).size.height * 0.37,
-              right: 20,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: widget.admin
-                    ? FloatingActionButton(
-                        onPressed: () => createEvent(context),
-                        backgroundColor: Colors.redAccent,
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.black,
-                        ))
-                    : const SizedBox(),
-              ),
-            ),
-          ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: StaggeredGridView.countBuilder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+          padding: EdgeInsets.all(15),
+          mainAxisSpacing: 20,
+          crossAxisSpacing: 20,
+          crossAxisCount: 2,
+          itemCount: DUMMY_CATEGORIES.length,
+          itemBuilder: (context, index) {
+            return ProgramItem(
+              title: DUMMY_CATEGORIES[index].title,
+              image: DUMMY_CATEGORIES[index].image,
+              index: index,
+            );
+          },
         ),
       ),
+      floatingActionButton: widget.admin
+          ? FloatingActionButton(
+              onPressed: () => createEvent(context),
+              backgroundColor: Colors.redAccent,
+              child: const Icon(
+                Icons.add,
+                color: Colors.black,
+              ))
+          : const SizedBox(),
     );
   }
 }
