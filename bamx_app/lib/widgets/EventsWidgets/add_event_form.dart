@@ -1,21 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../EventsWidgets/confirm.dart';
+
 class AddEventForm extends StatefulWidget {
   final bool isEvento;
-  const AddEventForm({super.key, required this.isEvento});
+  final Function sendData;
+
+  const AddEventForm({
+    super.key,
+    required this.isEvento,
+    required this.sendData,
+  });
 
   @override
   State<AddEventForm> createState() => _AddEventFormState();
 }
 
 class _AddEventFormState extends State<AddEventForm> {
-  TextEditingController dateinput = TextEditingController();
+  //controllers
+  TextEditingController _dateinput = TextEditingController();
+  late DateTime _newDate;
+
+  final _titleController = TextEditingController();
+  final _dirCatController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _pointNumController = TextEditingController();
+  final _cupoController = TextEditingController();
+  final _typeController = TextEditingController();
 
   @override
   void initState() {
-    dateinput.text = ""; //set the initial value of text field
+    _dateinput.text = ""; //set the initial value of text field
     super.initState();
+  }
+
+  void submitData() {
+    /*showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const ConfirmAlert(
+            'Confirmar Registro',
+            '¿Segur@ que desea registrarse en ese evento?',
+          );
+        });*/
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Añadir Evento'),
+            content: const Text('¿Segur@ de añadir este evento?'),
+            actions: [
+              ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancelar')),
+              ElevatedButton(
+                onPressed: () {
+                  if (widget.isEvento) {
+                    widget.sendData(
+                      _titleController.text,
+                      _typeController.text,
+                      _descriptionController.text,
+                      _dirCatController.text,
+                      _newDate,
+                      int.parse(_pointNumController.text),
+                      int.parse(_cupoController.text),
+                    );
+
+                    //close alert and modal
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  } else {
+                    //TODO: add new program function
+                  }
+                },
+                child: const Text('Aceptar'),
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -49,6 +112,7 @@ class _AddEventFormState extends State<AddEventForm> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(10),
               child: TextField(
+                controller: _titleController,
                 decoration: InputDecoration(
                   labelText:
                       widget.isEvento ? 'Titulo Evento' : 'Titulo Programa',
@@ -59,6 +123,7 @@ class _AddEventFormState extends State<AddEventForm> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(10),
               child: TextField(
+                controller: _dirCatController,
                 decoration: InputDecoration(
                   labelText: widget.isEvento
                       ? 'Dirección del evento'
@@ -66,6 +131,18 @@ class _AddEventFormState extends State<AddEventForm> {
                 ),
               ),
             ),
+            widget.isEvento
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: _typeController,
+                      decoration: const InputDecoration(
+                        labelText: 'Programa',
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               padding: const EdgeInsets.all(10),
@@ -74,7 +151,8 @@ class _AddEventFormState extends State<AddEventForm> {
                 color: Colors.grey.shade200,
               ),
               child: TextField(
-                maxLines: 5,
+                controller: _descriptionController,
+                maxLines: 3,
                 decoration: InputDecoration(
                   labelText: widget.isEvento
                       ? 'Descripción del evento'
@@ -89,7 +167,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     padding: const EdgeInsets.all(10),
                     child: TextField(
                       readOnly: true,
-                      controller: dateinput,
+                      controller: _dateinput,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.date_range),
                         labelText: 'Fecha del Evento',
@@ -102,11 +180,12 @@ class _AddEventFormState extends State<AddEventForm> {
                           lastDate: DateTime(2101),
                         );
                         if (pickedDate != null) {
+                          _newDate = pickedDate;
                           String formattedDate =
                               DateFormat('yyyy-MM-dd').format(pickedDate);
 
                           setState(() {
-                            dateinput.text =
+                            _dateinput.text =
                                 formattedDate; //set output date to TextField value.
                           });
                         }
@@ -120,6 +199,7 @@ class _AddEventFormState extends State<AddEventForm> {
                   : const EdgeInsets.only(right: 20, left: 20, bottom: 40),
               padding: const EdgeInsets.all(10),
               child: TextField(
+                controller: _pointNumController,
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: false,
                   signed: false,
@@ -133,13 +213,28 @@ class _AddEventFormState extends State<AddEventForm> {
                 ? Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     padding: const EdgeInsets.all(10),
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      controller: _cupoController,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: false,
+                        signed: false,
+                      ),
+                      decoration: const InputDecoration(
                         labelText: 'Cupo',
                       ),
                     ),
                   )
                 : const SizedBox(),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                onPressed: submitData,
+                child: Text(
+                  'Crear Nuevo',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+            ),
           ],
         ),
       ),

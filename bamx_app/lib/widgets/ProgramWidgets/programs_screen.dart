@@ -27,13 +27,18 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
           child: GestureDetector(
             onTap: () {},
             behavior: HitTestBehavior.opaque,
-            child: const AddEventForm(
+            child: AddEventForm(
               isEvento: false,
+              sendData: _addProgram,
             ),
           ),
         );
       },
     );
+  }
+
+  void _addProgram() {
+    //TODO: add new program function
   }
 
   @override

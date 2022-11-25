@@ -26,7 +26,6 @@ class EventCard extends StatelessWidget {
       elevation: 0,
       child: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-        //height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           boxShadow: const [
@@ -81,10 +80,12 @@ class EventCard extends StatelessWidget {
                         child: Row(
                           children: [
                             const Icon(Icons.calendar_month),
-                            Text(
-                              DateFormat.yMMMMEEEEd()
-                                  .add_jm()
-                                  .format(event.date),
+                            Expanded(
+                              child: Text(
+                                DateFormat.yMMMMEEEEd()
+                                    .add_jm()
+                                    .format(event.date),
+                              ),
                             ),
                           ],
                         ),
@@ -94,7 +95,9 @@ class EventCard extends StatelessWidget {
                         child: Row(
                           children: [
                             const Icon(Icons.notes),
-                            Text(event.details),
+                            Expanded(
+                              child: Text(event.details),
+                            ),
                           ],
                         ),
                       ),
