@@ -6,6 +6,10 @@ import 'program_long.dart';
 class ProgramItem extends StatelessWidget {
   final String title;
   final String image;
+  final String type;
+  final String details;
+  final String contact;
+
   final int index;
 
   const ProgramItem({
@@ -13,6 +17,9 @@ class ProgramItem extends StatelessWidget {
     required this.title,
     required this.image,
     required this.index,
+    required this.details,
+    required this.contact,
+    required this.type,
   });
 
   @override
@@ -32,7 +39,13 @@ class ProgramItem extends StatelessWidget {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              child: ProgramLong(title, image)),
+              child: ProgramLong(
+                contact: contact,
+                details: details,
+                image: image,
+                title: title,
+                type: type,
+              )),
         );
       },
       child: ProgramBrief(title, image),

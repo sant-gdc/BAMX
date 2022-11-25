@@ -43,7 +43,7 @@ List<Event> dummyEvents = [
   Event(
     id: 4,
     title: "Voluntario de repartición",
-    type: "Ropa",
+    type: "Medicinas",
     img:
         "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
     details: "Lorem ipsum",

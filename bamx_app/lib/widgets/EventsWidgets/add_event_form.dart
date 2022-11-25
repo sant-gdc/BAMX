@@ -24,6 +24,7 @@ class _AddEventFormState extends State<AddEventForm> {
   final _dirCatController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _pointNumController = TextEditingController();
+  final _contactController = TextEditingController();
   final _cupoController = TextEditingController();
   final _typeController = TextEditingController();
 
@@ -61,7 +62,16 @@ class _AddEventFormState extends State<AddEventForm> {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   } else {
-                    //TODO: add new program function
+                    widget.sendData(
+                      _titleController.text,
+                      _typeController.text,
+                      _descriptionController.text,
+                      _contactController.text,
+                    );
+
+                    //close alert and modal
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   }
                 },
                 child: const Text('Aceptar'),
@@ -109,30 +119,28 @@ class _AddEventFormState extends State<AddEventForm> {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: _dirCatController,
-                decoration: InputDecoration(
-                  labelText: widget.isEvento
-                      ? 'Dirección del evento'
-                      : 'Categoría del Programa',
-                ),
-              ),
-            ),
             widget.isEvento
                 ? Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     padding: const EdgeInsets.all(10),
                     child: TextField(
-                      controller: _typeController,
+                      controller: _dirCatController,
                       decoration: const InputDecoration(
-                        labelText: 'Programa',
+                        labelText: 'Dirección del evento',
                       ),
                     ),
                   )
                 : const SizedBox(),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: _typeController,
+                decoration: const InputDecoration(
+                  labelText: 'Programa',
+                ),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               padding: const EdgeInsets.all(10),
@@ -183,22 +191,32 @@ class _AddEventFormState extends State<AddEventForm> {
                     ),
                   )
                 : const SizedBox(),
-            Container(
-              margin: widget.isEvento
-                  ? const EdgeInsets.symmetric(horizontal: 20)
-                  : const EdgeInsets.only(right: 20, left: 20, bottom: 40),
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: _pointNumController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: false,
-                  signed: false,
-                ),
-                decoration: InputDecoration(
-                  labelText: widget.isEvento ? 'Puntos' : 'Número de Contacto',
-                ),
-              ),
-            ),
+            widget.isEvento
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: _pointNumController,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: false,
+                        signed: false,
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'Puntos',
+                      ),
+                    ),
+                  )
+                : Container(
+                    margin:
+                        const EdgeInsets.only(right: 20, left: 20, bottom: 40),
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      controller: _contactController,
+                      decoration: const InputDecoration(
+                        labelText: 'Número de Contacto',
+                      ),
+                    ),
+                  ),
             widget.isEvento
                 ? Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
