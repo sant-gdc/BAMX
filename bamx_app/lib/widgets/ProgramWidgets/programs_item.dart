@@ -1,56 +1,43 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:bamx_app/widgets/ProgramWidgets/programs_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class ProgramsItem extends StatelessWidget {
+import './program_brief.dart';
+import 'program_long.dart';
+
+class ProgramItem extends StatelessWidget {
   final String title;
   final String image;
+  final int index;
 
-  ProgramsItem(this.title, this.image);
+  const ProgramItem({
+    super.key,
+    required this.title,
+    required this.image,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: Offset(1, 3),
-          )
-        ],
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        //   image: DecorationImage(
-        //     image: NetworkImage(image),
-        //   ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * .10,
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadiusDirectional.only(
-                  topStart: Radius.circular(15), topEnd: Radius.circular(15)),
-              image: DecorationImage(
-                image: NetworkImage(image),
-                fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => Container(
+              height: MediaQuery.of(context).size.height * 0.87,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0),
+                ),
               ),
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * .06,
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          )
-        ],
-      ),
+              child: ProgramLong(title, image)),
+        );
+      },
+      child: ProgramBrief(title, image),
     );
   }
 }

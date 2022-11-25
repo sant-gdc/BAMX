@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddEventForm extends StatefulWidget {
-  const AddEventForm({super.key});
+  final bool isEvento;
+  const AddEventForm({super.key, required this.isEvento});
 
   @override
   State<AddEventForm> createState() => _AddEventFormState();
@@ -38,7 +39,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     size: 40,
                   ),
                   Text(
-                    'Nuevo Evento',
+                    widget.isEvento ? 'Nuevo Evento' : 'Nuevo Programa',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -47,18 +48,21 @@ class _AddEventFormState extends State<AddEventForm> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(10),
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
-                  labelText: 'Titulo del evento',
+                  labelText:
+                      widget.isEvento ? 'Titulo Evento' : 'Titulo Programa',
                 ),
               ),
             ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               padding: const EdgeInsets.all(10),
-              child: const TextField(
+              child: TextField(
                 decoration: InputDecoration(
-                  labelText: 'Dirección del evento',
+                  labelText: widget.isEvento
+                      ? 'Dirección del evento'
+                      : 'Categoría del Programa',
                 ),
               ),
             ),
@@ -69,65 +73,73 @@ class _AddEventFormState extends State<AddEventForm> {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.shade200,
               ),
-              child: const TextField(
+              child: TextField(
                 maxLines: 5,
                 decoration: InputDecoration(
-                  labelText: 'Descripción del evento',
+                  labelText: widget.isEvento
+                      ? 'Descripción del evento'
+                      : 'Descripción del Programa',
                   border: InputBorder.none,
                 ),
               ),
             ),
+            widget.isEvento
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      readOnly: true,
+                      controller: dateinput,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.date_range),
+                        labelText: 'Fecha del Evento',
+                      ),
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2101),
+                        );
+                        if (pickedDate != null) {
+                          String formattedDate =
+                              DateFormat('yyyy-MM-dd').format(pickedDate);
+
+                          setState(() {
+                            dateinput.text =
+                                formattedDate; //set output date to TextField value.
+                          });
+                        }
+                      },
+                    ),
+                  )
+                : const SizedBox(),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
+              margin: widget.isEvento
+                  ? const EdgeInsets.symmetric(horizontal: 20)
+                  : const EdgeInsets.only(right: 20, left: 20, bottom: 40),
               padding: const EdgeInsets.all(10),
               child: TextField(
-                readOnly: true,
-                controller: dateinput,
-                decoration: const InputDecoration(
-                  icon: Icon(Icons.date_range),
-                  labelText: 'Fecha del evento',
-                ),
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101),
-                  );
-                  if (pickedDate != null) {
-                    String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                    setState(() {
-                      dateinput.text =
-                          formattedDate; //set output date to TextField value.
-                    });
-                  }
-                },
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.all(10),
-              child: const TextField(
-                keyboardType: TextInputType.numberWithOptions(
+                keyboardType: const TextInputType.numberWithOptions(
                   decimal: false,
                   signed: false,
                 ),
                 decoration: InputDecoration(
-                  labelText: 'Puntos',
+                  labelText: widget.isEvento ? 'Puntos' : 'Número de Contacto',
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              padding: const EdgeInsets.all(10),
-              child: const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Cupo',
-                ),
-              ),
-            ),
+            widget.isEvento
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(10),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Cupo',
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
