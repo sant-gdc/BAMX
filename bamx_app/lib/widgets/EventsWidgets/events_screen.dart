@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
 import '../../models/event.dart';
 
 import './add_event_form.dart';
@@ -30,14 +32,15 @@ class _EventScreenState extends State<EventScreen> {
   //TODO: Fetch events info from database
   void _createEVent(BuildContext context) {
     showModalBottomSheet(
-      isScrollControlled: true,
+      //isScrollControlled: true,
       context: context,
       builder: (_) {
         return GestureDetector(
           onTap: () {},
           behavior: HitTestBehavior.opaque,
-          child: const AddEventForm(
+          child: AddEventForm(
             isEvento: true,
+            sendData: _addEvent,
           ),
         );
       },
@@ -57,6 +60,29 @@ class _EventScreenState extends State<EventScreen> {
     } else {
       setState(() => _eventFilter = resultEvents);
     }
+  }
+
+  void _addEvent(String title, String type, String details, String location,
+      DateTime date, int points, int volunteers) {
+    var rng = Random();
+    final newEvent = Event(
+      id: rng.nextInt(1000),
+      title: title,
+      type: type,
+      img:
+          'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
+      details: details,
+      location: location,
+      date: date,
+      points: points,
+      volunteers: volunteers,
+      enrolled: 0,
+    );
+
+    setState(() {
+      _eventList.add(newEvent);
+      _eventFilter = _eventList;
+    });
   }
 
   @override
