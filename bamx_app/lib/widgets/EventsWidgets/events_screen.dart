@@ -17,12 +17,14 @@ class EventScreen extends StatefulWidget {
 class _EventScreenState extends State<EventScreen> {
   final _searchQuery = TextEditingController();
   late List<Event> _eventList;
+  late List<Event> _eventFilter;
 
   @override
   void initState() {
     super.initState();
 
     _eventList = dummyEvents;
+    _eventFilter = dummyEvents;
   }
 
   //TODO: Fetch events info from database
@@ -50,10 +52,10 @@ class _EventScreenState extends State<EventScreen> {
     }).toList();
 
     if (query.isEmpty) {
-      setState(() => _eventList = dummyEvents);
+      setState(() => _eventFilter = dummyEvents);
       _searchQuery.clear();
     } else {
-      setState(() => _eventList = resultEvents);
+      setState(() => _eventFilter = resultEvents);
     }
   }
 
@@ -63,13 +65,59 @@ class _EventScreenState extends State<EventScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Card(
-              color: Colors.red,
-              child: Text('Search'),
+            Container(
+              margin: const EdgeInsets.only(
+                bottom: 0,
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade200,
+              ),
+              width: double.infinity,
+              child: TextField(
+                onChanged: (text) {
+                  _searchEvent(_searchQuery.text);
+                },
+                controller: _searchQuery,
+                style: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                ),
+                decoration: InputDecoration(
+                  icon: Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: const Icon(Icons.search)),
+                  border: InputBorder.none,
+                ),
+              ),
             ),
             Stack(
               children: [
-                EventsList(dummyEvents),
+                _eventFilter.isEmpty
+                    ? Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        height: MediaQuery.of(context).size.height * .7,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'No se encontraron eventos',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            SizedBox(height: 50),
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                'assets/images/waiting.png',
+                                //fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : EventsList(_eventFilter),
               ],
             ),
           ],
