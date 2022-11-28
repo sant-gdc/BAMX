@@ -85,14 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        leading: Container(
-            padding: EdgeInsets.only(left: 20, top: 5),
-            child: buildPPbubble(context)),
-        title: Text(
-          'BAMX',
-        ),
-      ),
+          centerTitle: true,
+          leading: Container(
+              padding: EdgeInsets.only(left: 20, top: 5),
+              child: buildPPbubble(context)),
+          title: Image.asset(
+            'assets/images/bamx_logo.png',
+            fit: BoxFit.cover,
+            height: 50,
+          )),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -100,13 +101,13 @@ class _MyHomePageState extends State<MyHomePage> {
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Inicio',
           ),
           const BottomNavigationBarItem(
               icon: Icon(Icons.collections_bookmark_outlined),
-              label: 'Programs'),
+              label: 'Programas'),
           const BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today), label: 'Calendar'),
+              icon: Icon(Icons.calendar_today), label: 'Calendario'),
         ],
         currentIndex: _selectedIndex,
         onTap: _onViewTappedIcon,
