@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 class ProfilePicEdit extends StatelessWidget {
   final String imageP;
-  final String name;
-  final String age;
-  final String phone;
 
-  ProfilePicEdit({
+  const ProfilePicEdit({
     Key? key,
     required this.imageP,
-    required this.name,
-    required this.age,
-    required this.phone,
   }) : super(key: key);
 
   @override

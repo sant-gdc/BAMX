@@ -15,7 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
     const user = UserPreferences.myUser;
 
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: buildAppBar(context, false),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

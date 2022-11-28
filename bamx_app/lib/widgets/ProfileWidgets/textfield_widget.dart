@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatefulWidget {
   final String label;
   final String text;
+  final bool isAdmin;
   final ValueChanged<String> onChanged;
 
   const TextFieldWidget({
     Key? key,
     required this.label,
     required this.text,
+    required this.isAdmin,
     required this.onChanged,
   }) : super(key: key);
 
   @override
-  _TextFieldWidgetState createState() => _TextFieldWidgetState();
+  TextFieldWidgetState createState() => TextFieldWidgetState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget> {
+class TextFieldWidgetState extends State<TextFieldWidget> {
   late final TextEditingController controller;
 
   @override
@@ -34,20 +36,43 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.label,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(
-            height: 8,
-          ),
-          TextField(
-            controller: controller,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12))),
-          ),
-        ],
-      );
+  Widget build(BuildContext context) =>
+      widget.isAdmin ? textAdmin() : textUser();
+
+  Widget textUser() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(
+          height: 8,
+        ),
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+        ),
+      ],
+    );
+  }
+
+  Widget textAdmin() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        const SizedBox(
+          height: 8,
+        ),
+        TextField(
+          maxLines: 5,
+          controller: controller,
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+        ),
+      ],
+    );
+  }
 }
