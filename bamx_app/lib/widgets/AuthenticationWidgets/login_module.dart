@@ -71,7 +71,7 @@ class _LogInModuleState extends State<LogInModule> {
               borderRadius: BorderRadius.circular(10),
             ),
             elevation: 20.0,
-            child: Container(
+            child: SizedBox(
               width: 320,
               height: 540,
               child: Column(
