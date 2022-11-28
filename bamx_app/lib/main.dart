@@ -3,7 +3,7 @@
 import './widgets/ProgramWidgets/programs_screen.dart';
 import './widgets/EventsWidgets/events_screen.dart';
 import 'package:flutter/material.dart';
-import './widgets/ProfileWidgets/pages/profile_page.dart';
+import './widgets/ProfileWidgets/buildPPbubble.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,14 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.account_circle_rounded),
-          iconSize: 40,
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ProfilePage()));
-          },
-        ),
+        leading: buildPPbubble(context),
         title: Text(
           'BAMX',
         ),

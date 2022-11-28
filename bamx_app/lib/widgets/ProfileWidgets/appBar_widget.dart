@@ -4,8 +4,8 @@ import './pages/edit_profile_page.dart';
 
 AppBar buildAppBar(BuildContext context) {
   return AppBar(
-    leading: BackButton(),
-    title: Text('BAMX'),
+    leading: const BackButton(),
+    title: const Text('BAMX'),
     backgroundColor: Colors.red,
     elevation: 0,
     actions: <Widget>[
