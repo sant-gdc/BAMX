@@ -50,8 +50,8 @@ class _LogInModuleState extends State<LogInModule> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (error) {
-      const snackBar = SnackBar(
-        content: Text('Error al iniciar sesión'),
+      var snackBar = SnackBar(
+        content: Text(error.code),
       );
       messengerKey.currentState!
         ..removeCurrentSnackBar()

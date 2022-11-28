@@ -56,8 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (error) {
-      const snackBar = SnackBar(
-        content: Text('Ya existe la cuenta'),
+      var snackBar = SnackBar(
+        content: Text(error.code),
       );
       messengerKey.currentState!
         ..removeCurrentSnackBar()
@@ -71,6 +71,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'institution': companyController.text,
       'city': cityController.text,
       'phone': phoneController.text,
+      'points': 0,
+      'events': [],
       'user': 'U',
     };
 

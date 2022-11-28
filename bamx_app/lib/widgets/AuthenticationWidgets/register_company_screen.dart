@@ -17,12 +17,11 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final locationController = TextEditingController();
-  final cityController = TextEditingController();
-  final phoneController = TextEditingController();
+  final visionController = TextEditingController();
+  final contactsController = TextEditingController();
 
   var databaseReference;
-
+  
   @override
   void initState() {
     databaseReference = FirebaseDatabase.instance.ref().child('Admins');
@@ -55,8 +54,8 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
           email: emailController.text.trim(),
           password: emailController.text.trim());
     } on FirebaseAuthException catch (error) {
-      const snackBar = SnackBar(
-        content: Text('Ya existe la cuenta'),
+      var snackBar = SnackBar(
+        content: Text(error.code),
       );
       messengerKey.currentState!
         ..removeCurrentSnackBar()
@@ -66,9 +65,8 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
       'name': nameController.text,
       'email': emailController.text,
       'password': passwordController.text,
-      'location': locationController.text,
-      'city': cityController.text,
-      'phone': phoneController.text,
+      'vision': visionController.text,
+      'contacts': contactsController.text,
       'user': 'A',
     };
 
@@ -181,40 +179,30 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Ubicación',
+                  labelText: 'Vision',
                 ),
-                controller: locationController,
+                controller: visionController,
                 validator: ((value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingrese su ubicacion';
+                    return 'Ingrese su vision';
                   }
                   return null;
                 }),
-                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                textInputAction: TextInputAction.newline,
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Ciudad',
-                ),
-                controller: cityController,
-                validator: ((value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Ingrese su ciudad';
-                  }
-                  return null;
-                }),
-                textInputAction: TextInputAction.next,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Teléfono Celular',
+                  labelText: 'Contacto(s)',
                 ),
                 keyboardType: TextInputType.phone,
-                controller: phoneController,
+                controller: contactsController,
                 textInputAction: TextInputAction.done,
+                maxLines: 3,
                 validator: ((value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingrese su teléfono';
+                    return 'Ingrese sus contactos';
                   }
                   return null;
                 }),
