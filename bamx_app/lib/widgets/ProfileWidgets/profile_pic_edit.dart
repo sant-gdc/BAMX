@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
-import './user_preferences.dart';
 
 class ProfilePicEdit extends StatelessWidget {
   final String imageP;
