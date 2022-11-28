@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +12,7 @@ class Calendar_Screen extends StatefulWidget {
 }
 
 class _Calendar_ScreenState extends State<Calendar_Screen> {
-  late List<Event> _eventList = dummyEvents;
+  final List<Event> _eventList = dummyEvents;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,7 @@ class _Calendar_ScreenState extends State<Calendar_Screen> {
         firstDayOfWeek: 1,
         dataSource: EventDataSource(getAppointments(_eventList)),
         cellBorderColor: Colors.transparent,
-        monthViewSettings: MonthViewSettings(
+        monthViewSettings: const MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
           showAgenda: true,
           agendaStyle: AgendaStyle(
@@ -49,7 +46,7 @@ class _Calendar_ScreenState extends State<Calendar_Screen> {
         ),
         selectionDecoration: BoxDecoration(
             color: Colors.transparent,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
             border: Border.all(color: Colors.red, width: 2),
             shape: BoxShape.rectangle),
       ),

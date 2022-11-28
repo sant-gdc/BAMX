@@ -132,12 +132,11 @@ class _EventScreenState extends State<EventScreen> {
                               'No se encontraron eventos',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                            SizedBox(height: 50),
-                            Container(
+                            const SizedBox(height: 50),
+                            SizedBox(
                               height: 200,
                               child: Image.asset(
                                 'assets/images/waiting.png',
-                                //fit: BoxFit.cover,
                               ),
                             ),
                           ],

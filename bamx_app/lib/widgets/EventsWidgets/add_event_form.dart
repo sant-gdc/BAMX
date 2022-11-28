@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../EventsWidgets/confirm.dart';
-
 class AddEventForm extends StatefulWidget {
   final bool isEvento;
   final Function sendData;
@@ -19,7 +17,7 @@ class AddEventForm extends StatefulWidget {
 
 class _AddEventFormState extends State<AddEventForm> {
   //controllers
-  TextEditingController _dateinput = TextEditingController();
+  final TextEditingController _dateinput = TextEditingController();
   late DateTime _newDate;
 
   final _titleController = TextEditingController();
@@ -36,14 +34,6 @@ class _AddEventFormState extends State<AddEventForm> {
   }
 
   void submitData() {
-    /*showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const ConfirmAlert(
-            'Confirmar Registro',
-            '¿Segur@ que desea registrarse en ese evento?',
-          );
-        });*/
     showDialog(
         context: context,
         builder: (BuildContext context) {

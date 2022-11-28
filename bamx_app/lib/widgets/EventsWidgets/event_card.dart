@@ -7,7 +7,7 @@ import 'confirm.dart';
 class EventCard extends StatelessWidget {
   final Event event;
 
-  EventCard(this.event, {super.key});
+  const EventCard(this.event, {super.key});
 
   void confirmRegister(BuildContext context) {
     showDialog(

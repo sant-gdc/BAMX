@@ -10,7 +10,7 @@ class ProgramBrief extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.grey,
             spreadRadius: 2,
@@ -20,9 +20,6 @@ class ProgramBrief extends StatelessWidget {
         ],
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        //   image: DecorationImage(
-        //     image: NetworkImage(image),
-        //   ),
       ),
       child: Column(
         children: [
