@@ -20,7 +20,7 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
   final visionController = TextEditingController();
   final contactsController = TextEditingController();
 
-  var databaseReference;
+  dynamic databaseReference;
   
   @override
   void initState() {

@@ -21,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final companyController = TextEditingController();
   final cityController = TextEditingController();
   final phoneController = TextEditingController();
-  var databaseReference;
+  dynamic databaseReference;
 
   @override
   void initState() {
