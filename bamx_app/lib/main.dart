@@ -86,7 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: buildPPbubble(context),
+        leading: Container(
+            padding: EdgeInsets.only(left: 20, top: 5),
+            child: buildPPbubble(context)),
         title: Text(
           'BAMX',
         ),
