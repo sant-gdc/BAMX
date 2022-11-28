@@ -1,6 +1,4 @@
-import 'package:bamx_app/widgets/ProgramWidgets/programs_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import './program_brief.dart';
 import 'program_long.dart';

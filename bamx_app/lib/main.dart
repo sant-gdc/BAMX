@@ -2,8 +2,11 @@
 
 import './widgets/ProgramWidgets/programs_screen.dart';
 import './widgets/EventsWidgets/events_screen.dart';
+import './widgets/CalendarWidgets/calendar_screen.dart';
 import 'package:flutter/material.dart';
 import './widgets/ProfileWidgets/buildPPbubble.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +18,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        SfGlobalLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('es'),
+      ],
+      locale: const Locale('es'),
       title: 'BAMX',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -60,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetOptions = [
     EventScreen(true),
     ProgramsScreen(admin: true),
-    Text('Calendario'),
+    Calendar_Screen(),
   ];
 
   void _onViewTappedIcon(int index) {
