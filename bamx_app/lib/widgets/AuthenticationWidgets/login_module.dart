@@ -1,6 +1,7 @@
 import 'package:bamx_app/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -21,7 +22,6 @@ class _LogInModuleState extends State<LogInModule> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
   @override
   void dispose() {
     emailController.dispose();
