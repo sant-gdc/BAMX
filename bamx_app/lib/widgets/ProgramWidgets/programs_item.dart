@@ -6,13 +6,26 @@ import 'program_long.dart';
 class ProgramItem extends StatelessWidget {
   final String title;
   final String image;
+  final String type;
+  final String details;
+  final String contact;
+  final bool admin;
+  final Function deleteProgram;
+  final int id;
+
   final int index;
 
   const ProgramItem({
     super.key,
+    required this.deleteProgram,
     required this.title,
     required this.image,
     required this.index,
+    required this.details,
+    required this.contact,
+    required this.type,
+    required this.admin,
+    required this.id,
   });
 
   @override
@@ -24,7 +37,7 @@ class ProgramItem extends StatelessWidget {
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
           builder: (context) => Container(
-              height: MediaQuery.of(context).size.height * 0.87,
+              height: MediaQuery.of(context).size.height * 0.90,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -32,10 +45,23 @@ class ProgramItem extends StatelessWidget {
                   topRight: Radius.circular(25.0),
                 ),
               ),
-              child: ProgramLong(title, image)),
+              child: ProgramLong(
+                contact: contact,
+                details: details,
+                image: image,
+                title: title,
+                type: type,
+                admin: admin,
+                deleteProgram: deleteProgram,
+                id: id,
+              )),
         );
       },
-      child: ProgramBrief(title, image),
+      child: ProgramBrief(
+        title: type,
+        image: image,
+        admin: admin,
+      ),
     );
   }
 }

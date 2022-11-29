@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProgramBrief extends StatelessWidget {
+  final bool admin;
   final String title;
   final String image;
 
-  ProgramBrief(this.title, this.image);
+  const ProgramBrief(
+      {required this.title,
+      required this.image,
+      required this.admin,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class ProgramBrief extends StatelessWidget {
             height: MediaQuery.of(context).size.height * .10,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-              borderRadius: BorderRadiusDirectional.only(
+              borderRadius: const BorderRadiusDirectional.only(
                   topStart: Radius.circular(15), topEnd: Radius.circular(15)),
               image: DecorationImage(
                 image: NetworkImage(image),
@@ -43,7 +48,7 @@ class ProgramBrief extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-          )
+          ),
         ],
       ),
     );
