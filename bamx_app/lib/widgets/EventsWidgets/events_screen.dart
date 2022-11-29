@@ -83,6 +83,13 @@ class _EventScreenState extends State<EventScreen> {
       _eventList.add(newEvent);
       _eventFilter = _eventList;
     });
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text('Añadido con Exito'),
+      ),
+    );
   }
 
   void _deleteEvent(String id) {
@@ -92,6 +99,13 @@ class _EventScreenState extends State<EventScreen> {
       _eventList.remove(event);
       _eventFilter = _eventList;
     });
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text('Eliminado con Exito'),
+      ),
+    );
   }
 
   @override

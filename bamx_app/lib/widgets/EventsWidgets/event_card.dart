@@ -23,6 +23,32 @@ class EventCard extends StatelessWidget {
     );
   }
 
+  void confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Borrar evento'),
+          content: Text('¿Está segur@ de borrar este evento?'),
+          actions: [
+            ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar')),
+            ElevatedButton(
+              onPressed: () {
+                delete(
+                  event.id,
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -150,11 +176,7 @@ class EventCard extends StatelessWidget {
                                       MaterialStatePropertyAll<Color>(
                                           Colors.grey.shade800),
                                 ),
-                                onPressed: () {
-                                  delete(
-                                    event.id,
-                                  );
-                                },
+                                onPressed: () => confirmDelete(context),
                                 child: const Icon(Icons.delete_outline),
                               ),
                             ),
