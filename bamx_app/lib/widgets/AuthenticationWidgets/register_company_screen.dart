@@ -19,14 +19,7 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
   final passwordController = TextEditingController();
   final visionController = TextEditingController();
   final contactsController = TextEditingController();
-
-  dynamic databaseReference;
-
-  @override
-  void initState() {
-    databaseReference = FirebaseDatabase.instance.ref().child('Admins');
-    super.initState();
-  }
+  dynamic databaseReference, userReference;
 
   void _togglePassword() {
     setState(() {
