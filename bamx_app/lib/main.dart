@@ -132,7 +132,7 @@ class _MenuPageState extends State<MenuPage> {
         isAdmin = true;
       });
     } else {
-      setState(() {
+      setState(() { 
         isAdmin = false;
       });
     }
