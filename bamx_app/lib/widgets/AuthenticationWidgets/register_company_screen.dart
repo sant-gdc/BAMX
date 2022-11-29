@@ -21,7 +21,7 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
   final contactsController = TextEditingController();
 
   dynamic databaseReference;
-  
+
   @override
   void initState() {
     databaseReference = FirebaseDatabase.instance.ref().child('Admins');
