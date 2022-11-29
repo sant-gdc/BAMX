@@ -2,7 +2,7 @@ import '../../models/event.dart';
 
 List<Event> dummyEvents = [
   Event(
-    id: 1,
+    id: "1",
     title: "Colecta de alimentos",
     type: "Alimentos",
     img:
@@ -15,7 +15,7 @@ List<Event> dummyEvents = [
     enrolled: 25,
   ),
   Event(
-    id: 2,
+    id: "2",
     title: "Colecta de medicinas",
     type: "Medicinas",
     img:
@@ -28,7 +28,7 @@ List<Event> dummyEvents = [
     enrolled: 25,
   ),
   Event(
-    id: 3,
+    id: "3",
     title: "Colecta de Ropa",
     type: "Ropa",
     img:
@@ -41,7 +41,7 @@ List<Event> dummyEvents = [
     enrolled: 25,
   ),
   Event(
-    id: 4,
+    id: "4",
     title: "Voluntario de repartición",
     type: "Medicinas",
     img:

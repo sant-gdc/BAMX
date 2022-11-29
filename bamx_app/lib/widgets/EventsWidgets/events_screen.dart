@@ -66,7 +66,7 @@ class _EventScreenState extends State<EventScreen> {
       DateTime date, int points, int volunteers) {
     var rng = Random();
     final newEvent = Event(
-      id: rng.nextInt(1000),
+      id: rng.nextInt(1000).toString(),
       title: title,
       type: type,
       img:
@@ -81,6 +81,15 @@ class _EventScreenState extends State<EventScreen> {
 
     setState(() {
       _eventList.add(newEvent);
+      _eventFilter = _eventList;
+    });
+  }
+
+  void _deleteEvent(String id) {
+    final event = _eventList.firstWhere((element) => element.id == id);
+
+    setState(() {
+      _eventList.remove(event);
       _eventFilter = _eventList;
     });
   }
@@ -142,7 +151,7 @@ class _EventScreenState extends State<EventScreen> {
                           ],
                         ),
                       )
-                    : EventsList(_eventFilter),
+                    : EventsList(_eventFilter, widget.admin, _deleteEvent),
               ],
             ),
           ],
