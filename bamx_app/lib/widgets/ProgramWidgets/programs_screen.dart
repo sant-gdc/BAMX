@@ -28,7 +28,21 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
     _programList = dummyPrograms;
   }
 
-  void createEvent(BuildContext context) {
+  void deleteProgram(
+    int deleteId,
+  ) {
+    int index = 0;
+    for (var i = 0; i < _programList.length; i++) {
+      if (_programList[i].id == deleteId) {
+        index = i;
+      }
+    }
+    setState(() {
+      _programList.removeAt(index);
+    });
+  }
+
+  void createProgram(BuildContext context) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -84,19 +98,22 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
           itemCount: _programList.length,
           itemBuilder: (context, index) {
             return ProgramItem(
-              title: _programList[index].type,
+              title: _programList[index].title,
               image: _programList[index].image,
               contact: _programList[index].contact,
               details: _programList[index].details,
               type: _programList[index].type,
+              admin: widget.admin,
               index: index,
+              deleteProgram: deleteProgram,
+              id: _programList[index].id,
             );
           },
         ),
       ),
       floatingActionButton: widget.admin
           ? FloatingActionButton(
-              onPressed: () => createEvent(context),
+              onPressed: () => createProgram(context),
               backgroundColor: Colors.redAccent,
               child: const Icon(
                 Icons.add,

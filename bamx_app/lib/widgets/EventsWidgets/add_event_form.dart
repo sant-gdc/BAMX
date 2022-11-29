@@ -39,8 +39,10 @@ class _AddEventFormState extends State<AddEventForm> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Añadir Evento'),
-            content: const Text('¿Segur@ de añadir este evento?'),
+            title: Text(widget.isEvento ? 'Añadir Evento' : 'Añadir Programa'),
+            content: Text(widget.isEvento
+                ? '¿Segur@ de añadir este evento?'
+                : '¿Segur@ de añadir este programa?'),
             actions: [
               ElevatedButton(
                   onPressed: () => Navigator.pop(context),

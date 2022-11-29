@@ -8,6 +8,9 @@ class ProgramLong extends StatelessWidget {
   final String type;
   final String details;
   final String contact;
+  final bool admin;
+  final Function deleteProgram;
+  final int id;
 
   const ProgramLong({
     super.key,
@@ -16,7 +19,35 @@ class ProgramLong extends StatelessWidget {
     required this.title,
     required this.image,
     required this.type,
+    required this.admin,
+    required this.id,
+    required this.deleteProgram,
   });
+
+  void deleteData(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Eliminar Programa'),
+            content: const Text('¿Segur@ de eliminar este programa?'),
+            actions: [
+              ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancelar')),
+              ElevatedButton(
+                onPressed: () {
+                  deleteProgram(id);
+                  //close alert and modal
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Aceptar'),
+              )
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +74,27 @@ class ProgramLong extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
-                      "Colecta de Ropa",
-                      style: TextStyle(
+                      title,
+                      style: const TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.bold,
                           fontSize: 21),
                       textAlign: TextAlign.start,
                     ),
-                    Icon(
-                      Icons.notifications_none,
-                    )
+                    admin
+                        ? TextButton(
+                            onPressed: () {
+                              deleteData(context);
+                            },
+                            child: Icon(
+                                color: Theme.of(context).colorScheme.primary,
+                                Icons.delete),
+                          )
+                        : const Icon(
+                            Icons.notifications_none,
+                          ),
                   ],
                 ),
                 Padding(
