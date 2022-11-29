@@ -53,12 +53,11 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
         buildImage(),
         buildInformation(),
-        buildPointsCard(),
+        buildPointsCard(context),
         SingleChildScrollView(child: VolunteerList(_userVolunteer)),
       ],
     );
@@ -115,42 +114,141 @@ class ProfileWidget extends StatelessWidget {
     );
   }
 
-  Widget buildPointsCard() {
-    return Card(
+  Widget buildPointsCard(context) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(context: context, builder: (context) => buildRanking());
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 5,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Icon(
+                Icons.star,
+                color: Colors.amber,
+                size: 35,
+              ),
+              Text(
+                '\t $points \t',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                'Puntos',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red.shade900,
+                  fontSize: 20,
+                ),
+              ),
+              const Padding(padding: EdgeInsets.all(5)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildRanking() {
+    return SimpleDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
-      elevation: 5,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 35,
-            ),
-            Text(
-              '\t $points \t',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            Text(
-              'Puntos',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.red.shade900,
-                fontSize: 20,
-              ),
-            ),
-            const Padding(padding: EdgeInsets.all(5)),
-          ],
+      elevation: 40,
+      title: const Text(
+        'Niveles de Ranking',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 25,
         ),
       ),
+      children: <Widget>[
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Icon(
+                  Icons.workspace_premium,
+                  color: Colors.cyan,
+                  size: 34,
+                ),
+                Text(
+                  'Diamante - 500pts',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyan,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Icon(
+                  Icons.workspace_premium,
+                  color: Color.fromARGB(255, 255, 204, 0),
+                  size: 34,
+                ),
+                Text(
+                  'Oro - 300pts',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 255, 204, 0),
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Icon(
+                  Icons.workspace_premium,
+                  color: Color.fromARGB(255, 155, 155, 155),
+                  size: 34,
+                ),
+                Text(
+                  'Plata - 150pts',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 155, 155, 155),
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const <Widget>[
+                Icon(
+                  Icons.workspace_premium,
+                  color: Color.fromARGB(255, 189, 117, 0),
+                  size: 34,
+                ),
+                Text(
+                  'Bronce - 50pts',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 189, 117, 0),
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
