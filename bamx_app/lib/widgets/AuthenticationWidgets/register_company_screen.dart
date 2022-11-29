@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:bamx_app/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:bamx_app/main.dart';
+import 'package:flutter/material.dart';
 
 class RegisterCompanyScreen extends StatefulWidget {
   const RegisterCompanyScreen({super.key});
@@ -40,7 +40,7 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
     });
   }
 
-  Future<void> _signIn() async {
+  Future _signIn() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -51,8 +51,9 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
             ));
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: emailController.text.trim());
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
     } on FirebaseAuthException catch (error) {
       var snackBar = SnackBar(
         content: Text(error.code),
@@ -61,16 +62,28 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
         ..removeCurrentSnackBar()
         ..showSnackBar(snackBar);
     }
+
     final Map<String, dynamic> userInfo = {
       'name': nameController.text,
       'email': emailController.text,
       'password': passwordController.text,
       'vision': visionController.text,
       'contacts': contactsController.text,
+    };
+    final Map<String, dynamic> userData = {
+      'name': nameController.text,
+      'email': emailController.text,
+      'password': passwordController.text,
       'user': 'A',
     };
-
+    databaseReference = FirebaseDatabase.instance
+        .ref()
+        .child('Admins/${FirebaseAuth.instance.currentUser!.uid}');
     databaseReference.push().set(userInfo);
+    userReference = FirebaseDatabase.instance
+        .ref()
+        .child('Users/${FirebaseAuth.instance.currentUser!.uid}');
+    userReference.push().set(userData);
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
@@ -88,12 +101,12 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
             children: [
               const Center(
                 child: Text(
-                  '¡Registrate como empresa!',
+                  '¡Regístrate como empresa!',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(
-                height: 25,
+                height: 15,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -112,19 +125,20 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
                 decoration: const InputDecoration(
                   labelText: 'Correo Electrónico',
                 ),
-                keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 controller: emailController,
-                validator: ((value) {
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
                       !EmailValidator.validate(value)) {
-                    return 'Ingrese su correo';
+                    return 'Por favor ingrese un correo válido';
                   }
                   return null;
-                }),
+                },
               ),
               TextFormField(
+                textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   labelText: 'Contraseña',
                   suffixIcon: IconButton(
@@ -140,7 +154,6 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
                 ),
                 obscureText: !_visibilityPassword,
                 controller: passwordController,
-                textInputAction: TextInputAction.next,
                 validator: ((value) {
                   if (value == null ||
                       value.length < 8 ||
@@ -160,14 +173,14 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
                       _toggleConfirm();
                     },
                     icon: Icon(
-                      _visibilityPassword
+                      _visibilityConfirm
                           ? Icons.visibility_off
                           : Icons.visibility,
                     ),
                   ),
                 ),
-                obscureText: !_visibilityPassword,
                 textInputAction: TextInputAction.next,
+                obscureText: !_visibilityConfirm,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Ingrese la contraseña';
@@ -179,35 +192,35 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
               ),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Vision',
+                  labelText: 'Visión',
                 ),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
                 controller: visionController,
                 validator: ((value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingrese su vision';
+                    return 'Ingrese su visión';
                   }
                   return null;
                 }),
-                keyboardType: TextInputType.multiline,
-                maxLines: 3,
-                textInputAction: TextInputAction.newline,
               ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Contacto(s)',
                 ),
-                keyboardType: TextInputType.phone,
+                textInputAction: TextInputAction.next,
                 controller: contactsController,
-                textInputAction: TextInputAction.done,
+                keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 validator: ((value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingrese sus contactos';
+                    return 'Ingrese sus formas de contacto';
                   }
                   return null;
                 }),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: _signIn,
                 child: const Text(
