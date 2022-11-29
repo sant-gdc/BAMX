@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore, sort_child_properties_last, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import './widgets/AuthenticationWidgets/login_module.dart';
 import './widgets/ProgramWidgets/programs_screen.dart';
 import './widgets/EventsWidgets/events_screen.dart';
 import './widgets/CalendarWidgets/calendar_screen.dart';
@@ -8,9 +11,14 @@ import './widgets/ProfileWidgets/buildPPbubble.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
+final navigatorKey = GlobalKey<NavigatorState>();
+final messengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -27,6 +35,8 @@ class MyApp extends StatelessWidget {
         const Locale('es'),
       ],
       locale: const Locale('es'),
+      scaffoldMessengerKey: messengerKey,
+      navigatorKey: navigatorKey,
       title: 'BAMX',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -68,6 +78,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Hubo un error'));
+          } else if (snapshot.hasData) {
+            return MenuPage();
+          } else {
+            return LogInModule();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class MenuPage extends StatefulWidget {
+  const MenuPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<MenuPage> createState() => _MenuPageState();
+}
+
+class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = [
     EventScreen(true),
@@ -85,15 +127,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          leading: Container(
-              padding: EdgeInsets.only(left: 20, top: 5),
-              child: buildPPbubble(context)),
-          title: Image.asset(
-            'assets/images/bamx_logo.png',
-            fit: BoxFit.cover,
-            height: 50,
-          )),
+        centerTitle: true,
+        title: Text(
+          'BAMX',
+        ),
+        leading: Container(
+            padding: EdgeInsets.only(left: 20, top: 5),
+            child: buildPPbubble(context)),
+        actions: [
+          GestureDetector(
+            child: Container(
+                padding: EdgeInsets.only(right: 20, top: 5),
+                child: Icon(Icons.logout)),
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+            },
+          ),
+        ],
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
