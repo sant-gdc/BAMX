@@ -113,9 +113,16 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = [
-    EventScreen(true),
-    ProgramsScreen(admin: true),
+  bool _isAdmin = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  late final List<Widget> _widgetOptions = [
+    EventScreen(_isAdmin),
+    ProgramsScreen(admin: _isAdmin),
     Calendar_Screen(),
   ];
 

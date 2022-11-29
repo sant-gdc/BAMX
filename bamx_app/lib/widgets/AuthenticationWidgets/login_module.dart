@@ -1,10 +1,9 @@
 import 'package:bamx_app/main.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:firebase_database/firebase_database.dart';
 import './register_company_screen.dart';
 import './register_screen.dart';
 
@@ -22,6 +21,8 @@ class _LogInModuleState extends State<LogInModule> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool isAdmin = false;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -56,6 +57,15 @@ class _LogInModuleState extends State<LogInModule> {
       messengerKey.currentState!
         ..removeCurrentSnackBar()
         ..showSnackBar(snackBar);
+    }
+    DatabaseReference userReference = FirebaseDatabase.instance
+        .ref('Users/${FirebaseAuth.instance.currentUser!.uid}');
+    DatabaseEvent event = await userReference.once();
+    Map userInfo = event.snapshot.value as Map;
+    if (userInfo.values.first['user'] == 'A') {
+      isAdmin = true;
+    } else {
+      isAdmin = false;
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
