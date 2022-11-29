@@ -31,14 +31,10 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
   void deleteProgram(
     int deleteId,
   ) {
-    int index = 0;
-    for (var i = 0; i < _programList.length; i++) {
-      if (_programList[i].id == deleteId) {
-        index = i;
-      }
-    }
+    final program =
+        _programList.firstWhere((element) => element.id == deleteId);
     setState(() {
-      _programList.removeAt(index);
+      _programList.remove(program);
     });
   }
 
