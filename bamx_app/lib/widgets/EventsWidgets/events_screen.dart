@@ -77,6 +77,7 @@ class _EventScreenState extends State<EventScreen> {
       points: points,
       volunteers: volunteers,
       enrolled: 0,
+      users: [],
     );
 
     setState(() {
@@ -86,7 +87,7 @@ class _EventScreenState extends State<EventScreen> {
 
     final messenger = ScaffoldMessenger.of(context);
     messenger.showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Añadido con Exito'),
       ),
     );
@@ -102,7 +103,7 @@ class _EventScreenState extends State<EventScreen> {
 
     final messenger = ScaffoldMessenger.of(context);
     messenger.showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Eliminado con Exito'),
       ),
     );

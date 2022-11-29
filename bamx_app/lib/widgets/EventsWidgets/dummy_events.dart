@@ -12,7 +12,8 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
     id: "2",
@@ -25,7 +26,8 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
     id: "3",
@@ -38,7 +40,8 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
     id: "4",
@@ -51,6 +54,7 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
 ];
