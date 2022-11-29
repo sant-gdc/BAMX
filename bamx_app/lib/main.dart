@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import './widgets/ProfileWidgets/buildPPbubble.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'globals.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -113,16 +115,32 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
-  bool _isAdmin = true;
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => getAdminStatus());
     super.initState();
   }
 
+  Future getAdminStatus() async {
+    DatabaseReference userReference = FirebaseDatabase.instance
+        .ref('Users/${FirebaseAuth.instance.currentUser!.uid}');
+    DatabaseEvent event = await userReference.once();
+    Map userInfo = event.snapshot.value as Map;
+    if (userInfo.values.first['user'] == 'A') {
+      setState(() {
+        isAdmin = true;
+      });
+    } else {
+      setState(() {
+        isAdmin = false;
+      });
+    }
+  }
+
   late final List<Widget> _widgetOptions = [
-    EventScreen(_isAdmin),
-    ProgramsScreen(admin: _isAdmin),
+    EventScreen(isAdmin),
+    ProgramsScreen(admin: isAdmin),
     Calendar_Screen(),
   ];
 
