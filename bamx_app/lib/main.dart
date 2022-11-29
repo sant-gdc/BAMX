@@ -130,8 +130,10 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'BAMX',
+        title: Image.asset(
+          'assets/images/bamx_logo.png',
+          fit: BoxFit.cover,
+          height: 50,
         ),
         leading: Container(
             padding: EdgeInsets.only(left: 20, top: 5),
