@@ -25,7 +25,7 @@ Widget buildPPbubble(BuildContext context, bool userType) {
           padding: const EdgeInsets.only(left: 5),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.white, width: 3),
+            border: Border.all(color: Colors.white, width: 2),
             image: DecorationImage(
                 image: userType ? imageA : imageU, fit: BoxFit.fill),
           ),
