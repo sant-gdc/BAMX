@@ -23,12 +23,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phoneController = TextEditingController();
   dynamic databaseReference;
 
-  @override
-  void initState() {
-    databaseReference = FirebaseDatabase.instance.ref().child('Users');
-    super.initState();
-  }
-
   void _togglePassword() {
     setState(() {
       _visibilityPassword = !_visibilityPassword;
@@ -63,6 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ..removeCurrentSnackBar()
         ..showSnackBar(snackBar);
     }
+
     final Map<String, dynamic> userInfo = {
       'name': nameController.text,
       'lastName': lastNameController.text,
@@ -75,7 +70,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'events': [],
       'user': 'U',
     };
-
+    databaseReference = FirebaseDatabase.instance
+        .ref()
+        .child('Users/${FirebaseAuth.instance.currentUser!.uid}');
     databaseReference.push().set(userInfo);
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

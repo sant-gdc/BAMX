@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import './widgets/ProfileWidgets/buildPPbubble.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'globals.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -113,11 +115,27 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = [
-    EventScreen(true),
-    ProgramsScreen(admin: true),
-    Calendar_Screen(),
-  ];
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => getAdminStatus());
+    super.initState();
+  }
+
+  Future getAdminStatus() async {
+    DatabaseReference userReference = FirebaseDatabase.instance
+        .ref('Users/${FirebaseAuth.instance.currentUser!.uid}');
+    DatabaseEvent event = await userReference.once();
+    Map userInfo = event.snapshot.value as Map;
+    if (userInfo.values.first['user'] == 'A') {
+      setState(() {
+        isAdmin = true;
+      });
+    } else {
+      setState(() {
+        isAdmin = false;
+      });
+    }
+  }
 
   void _onViewTappedIcon(int index) {
     setState(() {
@@ -127,6 +145,12 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgetOptions = [
+      EventScreen(isAdmin),
+      ProgramsScreen(admin: isAdmin),
+      Calendar_Screen(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
