@@ -17,7 +17,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           leading: const BackButton(),
-          title: const Text('Servitum'),
+          title: const Text('BAMX'),
           backgroundColor: Colors.red,
           elevation: 0,
         ),
@@ -27,9 +27,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             ProfilePicEdit(
               imageP: user.imageP,
-              name: user.name,
-              age: user.age,
-              phone: user.phone,
             ),
             const SizedBox(
               height: 24,
@@ -37,6 +34,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             TextFieldWidget(
               label: 'Nombre completo',
               text: user.name,
+              isAdmin: false,
               onChanged: (name) {},
             ),
             const SizedBox(
@@ -45,6 +43,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             TextFieldWidget(
               label: 'Edad',
               text: user.age,
+              isAdmin: false,
               onChanged: (age) {},
             ),
             const SizedBox(
@@ -53,6 +52,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             TextFieldWidget(
               label: 'Número de teléfono',
               text: user.phone,
+              isAdmin: false,
               onChanged: (phone) {},
             ),
           ],

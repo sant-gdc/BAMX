@@ -5,8 +5,8 @@ import '../EventsWidgets/dummy_events.dart';
 import '../../models/event.dart';
 
 class Carrousel extends StatefulWidget {
-  final String title;
-  const Carrousel({super.key, required this.title});
+  final String type;
+  const Carrousel({super.key, required this.type});
 
   @override
   State<Carrousel> createState() => _CarrouselState();
@@ -22,7 +22,7 @@ class _CarrouselState extends State<Carrousel> {
     super.initState();
     _pageController = PageController(viewportFraction: 0.8, initialPage: 1);
     for (var i = 0; i < dummyEvents.length; i++) {
-      widget.title == dummyEvents[i].type
+      widget.type == dummyEvents[i].type
           ? typeEvents.add(dummyEvents[i])
           : null;
     }

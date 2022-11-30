@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 
 import './carrousel.dart';
@@ -7,8 +5,49 @@ import './carrousel.dart';
 class ProgramLong extends StatelessWidget {
   final String title;
   final String image;
+  final String type;
+  final String details;
+  final String contact;
+  final bool admin;
+  final Function deleteProgram;
+  final int id;
 
-  const ProgramLong(this.title, this.image, {super.key});
+  const ProgramLong({
+    super.key,
+    required this.details,
+    required this.contact,
+    required this.title,
+    required this.image,
+    required this.type,
+    required this.admin,
+    required this.id,
+    required this.deleteProgram,
+  });
+
+  void deleteData(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Eliminar Programa'),
+            content: const Text('¿Segur@ de eliminar este programa?'),
+            actions: [
+              ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancelar')),
+              ElevatedButton(
+                onPressed: () {
+                  deleteProgram(id);
+                  //close alert and modal
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Aceptar'),
+              )
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +57,7 @@ class ProgramLong extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * .25,
           decoration: BoxDecoration(
-            borderRadius: BorderRadiusDirectional.only(
+            borderRadius: const BorderRadiusDirectional.only(
                 topStart: Radius.circular(15), topEnd: Radius.circular(15)),
             image: DecorationImage(
               image: NetworkImage(image),
@@ -37,16 +76,25 @@ class ProgramLong extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Colecta de Ropa",
-                      style: TextStyle(
+                      title,
+                      style: const TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.bold,
                           fontSize: 21),
                       textAlign: TextAlign.start,
                     ),
-                    Icon(
-                      Icons.notifications_none,
-                    )
+                    admin
+                        ? TextButton(
+                            onPressed: () {
+                              deleteData(context);
+                            },
+                            child: Icon(
+                                color: Theme.of(context).colorScheme.primary,
+                                Icons.delete),
+                          )
+                        : const Icon(
+                            Icons.notifications_none,
+                          ),
                   ],
                 ),
                 Padding(
@@ -54,19 +102,23 @@ class ProgramLong extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 20),
                         child: Icon(
                           Icons.info_outline,
                         ),
                       ),
-                      Text(
-                        "De que se trata la colecta de ropa...",
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                        textAlign: TextAlign.start,
+                      Expanded(
+                        child: Text(
+                          details.length > 110
+                              ? '${details.substring(0, 110)}...'
+                              : details,
+                          style: const TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                          textAlign: TextAlign.start,
+                        ),
                       ),
                     ],
                   ),
@@ -74,16 +126,16 @@ class ProgramLong extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 20),
                       child: Icon(
                         Icons.phone,
                       ),
                     ),
                     Expanded(
                       child: Text(
-                        "Número de contacto para más información.",
-                        style: TextStyle(
+                        contact,
+                        style: const TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
@@ -92,8 +144,8 @@ class ProgramLong extends StatelessWidget {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 27),
+                const Padding(
+                  padding: EdgeInsets.only(top: 27),
                   child: Text(
                     "Próximos eventos...",
                     style: TextStyle(
@@ -109,7 +161,7 @@ class ProgramLong extends StatelessWidget {
         ),
         Expanded(
             child: Carrousel(
-          title: title,
+          type: type,
         )),
       ],
     );

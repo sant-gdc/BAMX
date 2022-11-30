@@ -115,7 +115,6 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   int _selectedIndex = 0;
-
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getAdminStatus());
@@ -132,17 +131,11 @@ class _MenuPageState extends State<MenuPage> {
         isAdmin = true;
       });
     } else {
-      setState(() { 
+      setState(() {
         isAdmin = false;
       });
     }
   }
-
-  late final List<Widget> _widgetOptions = [
-    EventScreen(isAdmin),
-    ProgramsScreen(admin: isAdmin),
-    Calendar_Screen(),
-  ];
 
   void _onViewTappedIcon(int index) {
     setState(() {
@@ -152,15 +145,23 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _widgetOptions = [
+      EventScreen(isAdmin),
+      ProgramsScreen(admin: isAdmin),
+      Calendar_Screen(),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'BAMX',
+        title: Image.asset(
+          'assets/images/bamx_logo.png',
+          fit: BoxFit.cover,
+          height: 50,
         ),
         leading: Container(
             padding: EdgeInsets.only(left: 20, top: 5),
-            child: buildPPbubble(context)),
+            child: buildPPbubble(context, false)),
         actions: [
           GestureDetector(
             child: Container(
