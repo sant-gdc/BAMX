@@ -1,5 +1,5 @@
 class Event {
-  int id;
+  String id;
   String title;
   String type;
   String img;
@@ -8,7 +8,8 @@ class Event {
   DateTime date;
   int points;
   int volunteers;
-  int enrolled;
+  int enrolled = 0;
+  List<Object> users = [];
 
   Event({
     required this.id,
@@ -21,5 +22,6 @@ class Event {
     required this.points,
     required this.volunteers,
     required this.enrolled,
+    required this.users,
   });
 }

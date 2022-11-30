@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './volunteer_list.dart';
-import '../../models/volunteer.dart';
+import '../EventsWidgets/dummy_events.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imageP;
@@ -19,38 +19,6 @@ class ProfileWidget extends StatelessWidget {
     required this.points,
   }) : super(key: key);
 
-  final List<Volunteer> _userVolunteer = [
-    Volunteer(
-      id: 'e1',
-      title: 'Colecta de Medicamentos',
-      points: 5,
-      image: 'https://cdn-icons-png.flaticon.com/512/1098/1098028.png',
-      date: DateTime.now(),
-    ),
-    Volunteer(
-      id: 'e2',
-      title: 'Colecta de Alimentos Tec',
-      points: 3,
-      image:
-          'https://assets.website-files.com/60dd9083125eb44675d01dba/60dd9083125eb4580ad01eb6_Hero-image.png',
-      date: DateTime.now(),
-    ),
-    Volunteer(
-      id: 'e3',
-      title: 'Feria de Empleos',
-      points: 3,
-      image: 'https://cdn-icons-png.flaticon.com/512/1462/1462435.png',
-      date: DateTime.now(),
-    ),
-    Volunteer(
-      id: 'e4',
-      title: 'Organizacion en Almacen',
-      points: 5,
-      image: 'https://cdn-icons-png.flaticon.com/512/862/862856.png',
-      date: DateTime.now(),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -58,7 +26,7 @@ class ProfileWidget extends StatelessWidget {
         buildImage(),
         buildInformation(),
         buildPointsCard(context),
-        SingleChildScrollView(child: VolunteerList(_userVolunteer)),
+        SingleChildScrollView(child: VolunteerList(dummyEvents)),
       ],
     );
   }

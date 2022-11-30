@@ -7,6 +7,6 @@ class UserPreferences {
     name: 'Adrian Becerra',
     age: '19',
     phone: '(664)1681053',
-    points: 1000,
+    points: 325,
   );
 }

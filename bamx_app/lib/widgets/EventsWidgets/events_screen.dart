@@ -66,7 +66,7 @@ class _EventScreenState extends State<EventScreen> {
       DateTime date, int points, int volunteers) {
     var rng = Random();
     final newEvent = Event(
-      id: rng.nextInt(1000),
+      id: rng.nextInt(1000).toString(),
       title: title,
       type: type,
       img:
@@ -77,12 +77,36 @@ class _EventScreenState extends State<EventScreen> {
       points: points,
       volunteers: volunteers,
       enrolled: 0,
+      users: [],
     );
 
     setState(() {
       _eventList.add(newEvent);
       _eventFilter = _eventList;
     });
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+      const SnackBar(
+        content: Text('Añadido con Exito'),
+      ),
+    );
+  }
+
+  void _deleteEvent(String id) {
+    final event = _eventList.firstWhere((element) => element.id == id);
+
+    setState(() {
+      _eventList.remove(event);
+      _eventFilter = _eventList;
+    });
+
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.showSnackBar(
+      const SnackBar(
+        content: Text('Eliminado con Exito'),
+      ),
+    );
   }
 
   @override
@@ -142,7 +166,7 @@ class _EventScreenState extends State<EventScreen> {
                           ],
                         ),
                       )
-                    : EventsList(_eventFilter),
+                    : EventsList(_eventFilter, widget.admin, _deleteEvent),
               ],
             ),
           ],
