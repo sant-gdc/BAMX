@@ -1,6 +1,8 @@
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 
+import '../../endpoints/events_api.dart';
+
 import '../EventsWidgets/dummy_events.dart';
 import '../../models/event.dart';
 
@@ -12,22 +14,44 @@ class Calendar_Screen extends StatefulWidget {
 }
 
 class _Calendar_ScreenState extends State<Calendar_Screen> {
-  final List<Event> _eventList = dummyEvents;
+  List<Event> _eventList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchEvents();
+  }
+
+  void _fetchEvents() async {
+    List<Event> newList = await getUserEvents();
+    setState(() {
+      _eventList = newList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height * .79,
+      decoration: BoxDecoration(
+        color: Colors.red.shade100,
+        borderRadius: const BorderRadius.all(Radius.circular(25)),
+      ),
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+      margin: const EdgeInsets.all(10),
       child: SfCalendar(
+        headerStyle: CalendarHeaderStyle(
+            textStyle: Theme.of(context).textTheme.titleMedium,
+            textAlign: TextAlign.center),
         view: CalendarView.month,
         firstDayOfWeek: 1,
         dataSource: EventDataSource(getAppointments(_eventList)),
         cellBorderColor: Colors.transparent,
+        showNavigationArrow: true,
         monthViewSettings: const MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.indicator,
           showAgenda: true,
           agendaStyle: AgendaStyle(
-            backgroundColor: Color.fromARGB(235, 255, 237, 237),
             appointmentTextStyle: TextStyle(
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -65,16 +89,9 @@ List<Appointment> getAppointments(List<Event> eventList) {
     eventos.add(Appointment(
         startTime: eventList[key].date,
         endTime: eventList[key].date.add(const Duration(hours: 1)),
-        subject: eventList[key].title,
         isAllDay: false,
         color: Colors.red));
   });
-  eventos.add(Appointment(
-      startTime: startTime,
-      endTime: endTime,
-      subject: 'Colecta de Comida',
-      isAllDay: true,
-      color: Colors.red));
 
   return eventos;
 }

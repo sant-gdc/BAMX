@@ -13,7 +13,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'globals.dart';
-import './endpoints/user_api.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -20,7 +20,7 @@ class ProgramsScreen extends StatefulWidget {
 class _ProgramsScreenState extends State<ProgramsScreen> {
   int chngIndx = 0;
   bool change = true;
-  late List<Program> _programList = [];
+  List<Program> _programList = [];
 
   @override
   void initState() {
@@ -40,11 +40,21 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
       deletePrograms(deleteId);
       _fecthData();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Eliminado con Exito')),
+        const SnackBar(
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('Eliminado con Exito')),
       );
     } catch (e) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('No se pudo Eliminar el programa')),
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo Eliminar el programa')),
       );
     }
   }
@@ -87,11 +97,21 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
       _fecthData();
 
       messenger.showSnackBar(
-        const SnackBar(content: Text('Añadido con Exito')),
+        const SnackBar(
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('Añadido con Exito')),
       );
     } catch (e) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('No se pudo añadir el programa')),
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo añadir el programa')),
       );
     }
   }

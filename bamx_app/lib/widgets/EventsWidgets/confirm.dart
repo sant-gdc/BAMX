@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../endpoints/events_api.dart';
+
 class ConfirmAlert extends StatelessWidget {
   final String header;
   final String message;
-  const ConfirmAlert(this.header, this.message, {super.key});
+  final String eventID;
+  const ConfirmAlert(this.header, this.message, this.eventID, {super.key});
 
   void sendUserInfo(BuildContext context) {
-    //TODO: pending send register information
+    try {
+      registerUser(eventID);
+      registerEvent(eventID);
+    } catch (e) {}
+
     Navigator.pop(context);
   }
 
