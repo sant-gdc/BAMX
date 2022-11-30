@@ -7,7 +7,7 @@ import '../firebase_options.dart';
 
 DatabaseReference programsRef = FirebaseDatabase.instance.ref('Programs');
 
-void getPrograms() async {
+Future<List<Program>> getPrograms() async {
   List<Program> programs = [];
 
   final snapshot = await programsRef.get();
@@ -23,6 +23,8 @@ void getPrograms() async {
       ));
     }
   }
+
+  return programs;
 }
 
 void addProgram() {}

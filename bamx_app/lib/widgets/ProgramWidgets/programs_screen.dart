@@ -8,6 +8,8 @@ import 'programs_item.dart';
 import '../EventsWidgets/add_event_form.dart';
 import '../../models/programs.dart';
 
+import '../../endpoints/programs_api.dart';
+
 class ProgramsScreen extends StatefulWidget {
   final bool admin;
   const ProgramsScreen({super.key, required this.admin});
@@ -19,17 +21,24 @@ class ProgramsScreen extends StatefulWidget {
 class _ProgramsScreenState extends State<ProgramsScreen> {
   int chngIndx = 0;
   bool change = true;
-  late List<Program> _programList;
+  late List<Program> _programList = [];
 
   @override
   void initState() {
     super.initState();
+    _programList = [];
+    fecthData();
+  }
 
-    _programList = dummyPrograms;
+  void fecthData() async {
+    List<Program> newList = await getPrograms();
+    setState(() {
+      _programList = newList;
+    });
   }
 
   void deleteProgram(
-    int deleteId,
+    String deleteId,
   ) {
     final program =
         _programList.firstWhere((element) => element.id == deleteId);
@@ -65,7 +74,7 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
   ) {
     var rng = Random();
     final newProgram = Program(
-      id: rng.nextInt(1000),
+      id: rng.nextInt(1000).toString(),
       title: title,
       type: type,
       image:

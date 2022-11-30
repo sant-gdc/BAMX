@@ -10,7 +10,7 @@ class ProgramLong extends StatelessWidget {
   final String contact;
   final bool admin;
   final Function deleteProgram;
-  final int id;
+  final String id;
 
   const ProgramLong({
     super.key,
