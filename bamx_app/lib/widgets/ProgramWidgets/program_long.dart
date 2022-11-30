@@ -37,10 +37,10 @@ class ProgramLong extends StatelessWidget {
                   child: const Text('Cancelar')),
               ElevatedButton(
                 onPressed: () {
-                  deleteProgram(id);
                   //close alert and modal
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
+                  deleteProgram(id);
                 },
                 child: const Text('Aceptar'),
               )

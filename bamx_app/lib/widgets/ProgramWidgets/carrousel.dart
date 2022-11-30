@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../EventsWidgets/dummy_events.dart';
 import '../../models/event.dart';
 
+import '../../endpoints/programs_api.dart';
+
 class Carrousel extends StatefulWidget {
   final String type;
   const Carrousel({super.key, required this.type});
@@ -14,18 +16,25 @@ class Carrousel extends StatefulWidget {
 
 class _CarrouselState extends State<Carrousel> {
   int activePage = 1;
-  List<Event> typeEvents = [];
+  List<Event> _typeEvents = [];
   late PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(viewportFraction: 0.8, initialPage: 1);
-    for (var i = 0; i < dummyEvents.length; i++) {
+    // _typeEvents = getRelatedEvents(widget.type);
+    /*for (var i = 0; i < dummyEvents.length; i++) {
       widget.type == dummyEvents[i].type
-          ? typeEvents.add(dummyEvents[i])
+          ? _typeEvents.add(dummyEvents[i])
           : null;
-    }
+    }*/
+    _getEvents();
+  }
+
+  void _getEvents() async {
+    List<Event> newList = await getRelatedEvents(widget.type);
+    setState(() => _typeEvents = newList);
   }
 
   List<Widget> indicators(imagesLength, currentIndex) {
@@ -60,7 +69,7 @@ class _CarrouselState extends State<Carrousel> {
           width: MediaQuery.of(context).size.width,
           height: 200,
           child: PageView.builder(
-            itemCount: typeEvents.length,
+            itemCount: _typeEvents.length,
             pageSnapping: true,
             controller: _pageController,
             onPageChanged: (page) {
@@ -71,13 +80,13 @@ class _CarrouselState extends State<Carrousel> {
             itemBuilder: (context, pagePosition) {
               //checking active position
               bool active = pagePosition == activePage;
-              return slider(typeEvents, pagePosition, active);
+              return slider(_typeEvents, pagePosition, active);
             },
           ),
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: indicators(typeEvents.length, activePage))
+            children: indicators(_typeEvents.length, activePage))
       ],
     );
   }

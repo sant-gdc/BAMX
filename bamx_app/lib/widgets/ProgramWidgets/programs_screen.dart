@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'dart:math';
 
-import 'dummy_data.dart';
 import 'programs_item.dart';
 import '../EventsWidgets/add_event_form.dart';
 import '../../models/programs.dart';
@@ -26,25 +25,28 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
   @override
   void initState() {
     super.initState();
-    _programList = [];
-    fecthData();
+    _fecthData();
   }
 
-  void fecthData() async {
+  void _fecthData() async {
     List<Program> newList = await getPrograms();
-    setState(() {
-      _programList = newList;
-    });
+    setState(() => _programList = newList);
   }
 
-  void deleteProgram(
-    String deleteId,
-  ) {
-    final program =
-        _programList.firstWhere((element) => element.id == deleteId);
-    setState(() {
-      _programList.remove(program);
-    });
+  void _deleteProgram(String deleteId) {
+    final messenger = ScaffoldMessenger.of(context);
+
+    try {
+      deletePrograms(deleteId);
+      _fecthData();
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Eliminado con Exito')),
+      );
+    } catch (e) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('No se pudo Eliminar el programa')),
+      );
+    }
   }
 
   void createProgram(BuildContext context) {
@@ -66,12 +68,7 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
     );
   }
 
-  void _addProgram(
-    String title,
-    String type,
-    String details,
-    String contact,
-  ) {
+  void _addProgram(String title, String type, String details, String contact) {
     var rng = Random();
     final newProgram = Program(
       id: rng.nextInt(1000).toString(),
@@ -83,9 +80,20 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
       contact: contact,
     );
 
-    setState(() {
-      _programList.add(newProgram);
-    });
+    final messenger = ScaffoldMessenger.of(context);
+
+    try {
+      addProgram(newProgram);
+      _fecthData();
+
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Añadido con Exito')),
+      );
+    } catch (e) {
+      messenger.showSnackBar(
+        const SnackBar(content: Text('No se pudo añadir el programa')),
+      );
+    }
   }
 
   @override
@@ -110,7 +118,7 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
               type: _programList[index].type,
               admin: widget.admin,
               index: index,
-              deleteProgram: deleteProgram,
+              deleteProgram: _deleteProgram,
               id: _programList[index].id,
             );
           },
