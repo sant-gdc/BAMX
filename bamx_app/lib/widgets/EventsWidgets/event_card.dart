@@ -15,9 +15,10 @@ class EventCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const ConfirmAlert(
+        return ConfirmAlert(
           'Confirmar Registro',
           '¿Segur@ que desea registrarse en ese evento?',
+          event.id,
         );
       },
     );

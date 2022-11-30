@@ -18,8 +18,8 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   final _searchQuery = TextEditingController();
-  late List<Event> _eventList = [];
-  late List<Event> _eventFilter = [];
+  List<Event> _eventList = [];
+  List<Event> _eventFilter = [];
 
   @override
   void initState() {
@@ -93,12 +93,21 @@ class _EventScreenState extends State<EventScreen> {
 
       messenger.showSnackBar(
         const SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: StadiumBorder(),
+          margin: EdgeInsets.all(50),
           content: Text('Añadido con Exito'),
         ),
       );
     } catch (e) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('No se pudo añadir el Evento')),
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo añadir el Evento')),
       );
     }
   }
@@ -110,11 +119,21 @@ class _EventScreenState extends State<EventScreen> {
       deletePrograms(id);
       _fetchEvents();
       messenger.showSnackBar(
-        const SnackBar(content: Text('Eliminado con Exito')),
+        const SnackBar(
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('Eliminado con Exito')),
       );
     } catch (e) {
       messenger.showSnackBar(
-        const SnackBar(content: Text('No se pudo Eliminar el Evento')),
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo Eliminar el Evento')),
       );
     }
   }
