@@ -7,7 +7,8 @@ List<Event> dummyEvents = [
     type: "Alimentos",
     img:
         "https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg",
-    details: "Lorem ipsum",
+    details:
+        "Colecta de alimentos en centro de acopio establecido en el parque Santa Margarita, favor de presentarse puntual y vestido de blanco",
     location: "Guadalajara",
     date: DateTime.now(),
     points: 5,
