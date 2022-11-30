@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import '../../models/event.dart';
+import '../../endpoints/events_api.dart';
 
 import './add_event_form.dart';
-import './dummy_events.dart';
 import './events_list.dart';
 
 class EventScreen extends StatefulWidget {
@@ -18,21 +18,27 @@ class EventScreen extends StatefulWidget {
 
 class _EventScreenState extends State<EventScreen> {
   final _searchQuery = TextEditingController();
-  late List<Event> _eventList;
-  late List<Event> _eventFilter;
+  List<Event> _eventList = [];
+  List<Event> _eventFilter = [];
 
   @override
   void initState() {
     super.initState();
 
-    _eventList = dummyEvents;
-    _eventFilter = dummyEvents;
+    _fetchEvents();
   }
 
-  //TODO: Fetch events info from database
+  void _fetchEvents() async {
+    List<Event> newList = await getEvents();
+    setState(() {
+      _eventList = newList;
+      _eventFilter = newList;
+    });
+  }
+
   void _createEVent(BuildContext context) {
     showModalBottomSheet(
-      //isScrollControlled: true,
+      isScrollControlled: true,
       context: context,
       builder: (_) {
         return GestureDetector(
@@ -55,7 +61,7 @@ class _EventScreenState extends State<EventScreen> {
     }).toList();
 
     if (query.isEmpty) {
-      setState(() => _eventFilter = dummyEvents);
+      setState(() => _eventFilter = _eventList);
       _searchQuery.clear();
     } else {
       setState(() => _eventFilter = resultEvents);
@@ -79,34 +85,57 @@ class _EventScreenState extends State<EventScreen> {
       enrolled: 0,
       users: [],
     );
-
-    setState(() {
-      _eventList.add(newEvent);
-      _eventFilter = _eventList;
-    });
-
     final messenger = ScaffoldMessenger.of(context);
-    messenger.showSnackBar(
-      const SnackBar(
-        content: Text('Añadido con Exito'),
-      ),
-    );
+
+    try {
+      addEvent(newEvent);
+      _fetchEvents();
+
+      messenger.showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: StadiumBorder(),
+          margin: EdgeInsets.all(50),
+          content: Text('Añadido con Exito'),
+        ),
+      );
+    } catch (e) {
+      messenger.showSnackBar(
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo añadir el Evento')),
+      );
+    }
   }
 
   void _deleteEvent(String id) {
-    final event = _eventList.firstWhere((element) => element.id == id);
-
-    setState(() {
-      _eventList.remove(event);
-      _eventFilter = _eventList;
-    });
-
     final messenger = ScaffoldMessenger.of(context);
-    messenger.showSnackBar(
-      const SnackBar(
-        content: Text('Eliminado con Exito'),
-      ),
-    );
+
+    try {
+      deletePrograms(id);
+      _fetchEvents();
+      messenger.showSnackBar(
+        const SnackBar(
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('Eliminado con Exito')),
+      );
+    } catch (e) {
+      messenger.showSnackBar(
+        const SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            shape: StadiumBorder(),
+            margin: EdgeInsets.all(50),
+            content: Text('No se pudo Eliminar el Evento')),
+      );
+    }
   }
 
   @override

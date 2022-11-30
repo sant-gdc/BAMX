@@ -1,5 +1,5 @@
 class Program {
-  int id;
+  String id;
   String title;
   String image;
   String type;

@@ -160,7 +160,7 @@ class _MenuPageState extends State<MenuPage> {
         ),
         leading: Container(
             padding: EdgeInsets.only(left: 20, top: 5),
-            child: buildPPbubble(context, isAdmin)),
+            child: PPbubble(isAdmin)),
         actions: [
           GestureDetector(
             child: Container(

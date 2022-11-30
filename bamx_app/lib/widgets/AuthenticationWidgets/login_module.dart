@@ -51,6 +51,10 @@ class _LogInModuleState extends State<LogInModule> {
       );
     } on FirebaseAuthException catch (error) {
       var snackBar = SnackBar(
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        shape: const StadiumBorder(),
+        margin: const EdgeInsets.all(50),
         content: Text(error.code),
       );
       messengerKey.currentState!

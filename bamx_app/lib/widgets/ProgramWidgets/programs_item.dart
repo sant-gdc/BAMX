@@ -11,7 +11,7 @@ class ProgramItem extends StatelessWidget {
   final String contact;
   final bool admin;
   final Function deleteProgram;
-  final int id;
+  final String id;
 
   final int index;
 

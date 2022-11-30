@@ -2,7 +2,7 @@ import '../../models/programs.dart';
 
 List<Program> dummyPrograms = [
   Program(
-    id: 1,
+    id: "1",
     title: 'Colecta de Ropa',
     image:
         'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
@@ -12,7 +12,7 @@ List<Program> dummyPrograms = [
     contact: '+52 33 4802 3874',
   ),
   Program(
-    id: 2,
+    id: "2",
     title: 'Colecta de Alimentos',
     image:
         'https://www.meganoticias.mx/uploads/noticias/fundacion-hara-colecta-de-alimentos-no-perecederos-para-familias-vulnerables-192023.jpeg',
@@ -22,7 +22,7 @@ List<Program> dummyPrograms = [
     contact: '+52 33 4802 3874',
   ),
   Program(
-    id: 3,
+    id: "3",
     title: 'Colecta de Medicinas',
     image: 'https://www.mees.com.mx/wp-content/uploads/2020/04/SPC-016.jpg',
     type: 'Medicinas',

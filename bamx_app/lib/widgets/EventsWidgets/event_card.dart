@@ -15,9 +15,10 @@ class EventCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const ConfirmAlert(
+        return ConfirmAlert(
           'Confirmar Registro',
           '¿Segur@ que desea registrarse en ese evento?',
+          event.id,
         );
       },
     );
@@ -28,8 +29,8 @@ class EventCard extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Borrar evento'),
-          content: Text('¿Está segur@ de borrar este evento?'),
+          title: const Text('Borrar evento'),
+          content: const Text('¿Está segur@ de borrar este evento?'),
           actions: [
             ElevatedButton(
                 onPressed: () => Navigator.pop(context),
@@ -100,7 +101,9 @@ class EventCard extends StatelessWidget {
                         child: Row(
                           children: [
                             const Icon(Icons.pin_drop),
-                            Text(event.location),
+                            Expanded(
+                              child: Text(event.location),
+                            ),
                           ],
                         ),
                       ),
