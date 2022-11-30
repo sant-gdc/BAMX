@@ -25,6 +25,9 @@ class VolunteerList extends StatelessWidget {
             },
             child: Card(
               elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
               child: Row(
                 children: <Widget>[
                   Container(
