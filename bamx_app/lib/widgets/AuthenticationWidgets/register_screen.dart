@@ -21,6 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final companyController = TextEditingController();
   final cityController = TextEditingController();
   final phoneController = TextEditingController();
+  final ageController = TextEditingController();
   dynamic databaseReference;
 
   void _togglePassword() {
@@ -63,6 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'lastName': lastNameController.text,
       'email': emailController.text,
       'password': passwordController.text,
+      'age': ageController.text,
       'institution': companyController.text,
       'city': cityController.text,
       'phone': phoneController.text,
@@ -97,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(
-                height: 15,
+                height: 10,
               ),
               TextFormField(
                 decoration: const InputDecoration(
@@ -193,6 +195,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   }
                   return null;
                 },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Edad',
+                ),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
+                controller: ageController,
+                validator: ((value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Ingrese su edad';
+                  }
+                  return null;
+                }),
               ),
               TextFormField(
                 decoration: const InputDecoration(
