@@ -1,7 +1,6 @@
 import './carrouselCard.dart';
 import 'package:flutter/material.dart';
 
-import '../EventsWidgets/dummy_events.dart';
 import '../../models/event.dart';
 
 import '../../endpoints/programs_api.dart';
@@ -23,12 +22,6 @@ class _CarrouselState extends State<Carrousel> {
   void initState() {
     super.initState();
     _pageController = PageController(viewportFraction: 0.8, initialPage: 1);
-    // _typeEvents = getRelatedEvents(widget.type);
-    /*for (var i = 0; i < dummyEvents.length; i++) {
-      widget.type == dummyEvents[i].type
-          ? _typeEvents.add(dummyEvents[i])
-          : null;
-    }*/
     _getEvents();
   }
 
