@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 import '../appBar_widget.dart';
 import '../admin_preferences.dart';
 import '../admin_widget.dart';
+import '../../../endpoints/user_api.dart';
+import '../../../models/admin.dart';
 
 class AdminProfile extends StatefulWidget {
+  final Admin admin;
+  const AdminProfile(this.admin, {super.key});
+
   @override
   AdminProfileState createState() => AdminProfileState();
 }
@@ -12,7 +17,7 @@ class AdminProfile extends StatefulWidget {
 class AdminProfileState extends State<AdminProfile> {
   @override
   Widget build(BuildContext context) {
-    const admin = AdminPreferences.myAdmin;
+    //const admin = AdminPreferences.myAdmin;
 
     return Scaffold(
       appBar: buildAppBar(context, true),
@@ -20,9 +25,9 @@ class AdminProfileState extends State<AdminProfile> {
         physics: const BouncingScrollPhysics(),
         children: [
           AdminWidget(
-            imageP: admin.imageP,
-            vision: admin.vision,
-            contacts: admin.contacts,
+            imageP: widget.admin.imageP,
+            vision: widget.admin.vision,
+            contacts: widget.admin.contacts,
           )
         ],
       ),

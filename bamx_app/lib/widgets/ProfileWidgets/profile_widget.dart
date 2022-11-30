@@ -61,7 +61,7 @@ class ProfileWidget extends StatelessWidget {
           children: <Widget>[
             const Spacer(flex: 10),
             Text(
-              age,
+              '$age años',
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
