@@ -145,12 +145,11 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _widgetOptions = [
+    final List<Widget> widgetOptions = [
       EventScreen(isAdmin),
       ProgramsScreen(admin: isAdmin),
       Calendar_Screen(),
     ];
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -174,7 +173,7 @@ class _MenuPageState extends State<MenuPage> {
         ],
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
