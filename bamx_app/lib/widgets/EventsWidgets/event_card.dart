@@ -6,18 +6,47 @@ import 'confirm.dart';
 
 class EventCard extends StatelessWidget {
   final Event event;
+  final Function delete;
+  final bool isAdmin;
 
-  const EventCard(this.event, {super.key});
+  const EventCard(this.event, this.delete, this.isAdmin, {super.key});
 
   void confirmRegister(BuildContext context) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const ConfirmAlert(
-            'Confirmar Registro',
-            '¿Segur@ que desea registrarse en ese evento?',
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return const ConfirmAlert(
+          'Confirmar Registro',
+          '¿Segur@ que desea registrarse en ese evento?',
+        );
+      },
+    );
+  }
+
+  void confirmDelete(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Borrar evento'),
+          content: Text('¿Está segur@ de borrar este evento?'),
+          actions: [
+            ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar')),
+            ElevatedButton(
+              onPressed: () {
+                delete(
+                  event.id,
+                );
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -126,10 +155,37 @@ class EventCard extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   margin: const EdgeInsets.all(15),
-                  child: ElevatedButton(
-                    onPressed: () => confirmRegister(context),
-                    child: const Text('Registrate'),
-                  ),
+                  child: isAdmin
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .55,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  //TODO: Modal with volunteer list
+                                },
+                                child: const Icon(Icons.person),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * .20,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll<Color>(
+                                          Colors.grey.shade800),
+                                ),
+                                onPressed: () => confirmDelete(context),
+                                child: const Icon(Icons.delete_outline),
+                              ),
+                            ),
+                          ],
+                        )
+                      : ElevatedButton(
+                          onPressed: () => confirmRegister(context),
+                          child: const Text('Registrate'),
+                        ),
                 )
               ],
             ),

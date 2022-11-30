@@ -2,7 +2,7 @@ import '../../models/event.dart';
 
 List<Event> dummyEvents = [
   Event(
-    id: 1,
+    id: "1",
     title: "Colecta de alimentos",
     type: "Alimentos",
     img:
@@ -12,10 +12,11 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
-    id: 2,
+    id: "2",
     title: "Colecta de medicinas",
     type: "Medicinas",
     img:
@@ -25,10 +26,11 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
-    id: 3,
+    id: "3",
     title: "Colecta de Ropa",
     type: "Ropa",
     img:
@@ -38,10 +40,11 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
   Event(
-    id: 4,
+    id: "4",
     title: "Voluntario de repartición",
     type: "Medicinas",
     img:
@@ -51,6 +54,7 @@ List<Event> dummyEvents = [
     date: DateTime.now(),
     points: 5,
     volunteers: 40,
-    enrolled: 25,
+    enrolled: 0,
+    users: [],
   ),
 ];
