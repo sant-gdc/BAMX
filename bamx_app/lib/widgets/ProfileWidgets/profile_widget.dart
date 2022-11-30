@@ -23,24 +23,31 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        buildImage(),
-        buildInformation(),
-        buildPointsCard(context),
-        const Padding(padding: EdgeInsets.only(top: 5, bottom: 20)),
-        Container(
-          padding: const EdgeInsets.only(left: 7),
-          alignment: Alignment.bottomLeft,
-          child: const Text(
-            'Eventos Pasados',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-                fontSize: 25, fontWeight: FontWeight.normal, color: Colors.red),
+    return Container(
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      child: Column(
+        children: <Widget>[
+          buildImage(),
+          buildInformation(),
+          buildPointsCard(context),
+          const Padding(padding: EdgeInsets.all(5)),
+          buildPayPalButton(),
+          const Padding(padding: EdgeInsets.only(top: 5, bottom: 20)),
+          Container(
+            padding: const EdgeInsets.only(left: 7),
+            alignment: Alignment.bottomLeft,
+            child: const Text(
+              'Eventos Pasados',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.red),
+            ),
           ),
-        ),
-        SingleChildScrollView(child: VolunteerList(dummyEvents)),
-      ],
+          SingleChildScrollView(child: VolunteerList(dummyEvents)),
+        ],
+      ),
     );
   }
 
@@ -230,6 +237,38 @@ class ProfileWidget extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+
+  Widget buildPayPalButton() {
+    return SizedBox(
+      height: 40,
+      width: 150,
+      child: ElevatedButton(
+          onPressed: () async {},
+          style: ElevatedButton.styleFrom(
+            elevation: 10,
+            backgroundColor: const Color.fromARGB(255, 255, 217, 29),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Text(
+                "Dona aquí \t",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 26, 170),
+                    fontSize: 17),
+              ),
+              Icon(
+                Icons.paypal,
+                color: Colors.blue,
+              )
+            ],
+          )),
     );
   }
 }
