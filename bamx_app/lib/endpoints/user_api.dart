@@ -8,7 +8,7 @@ DatabaseReference userRef = FirebaseDatabase.instance.ref('Users');
 DatabaseReference adminRef = FirebaseDatabase.instance.ref('Admins');
 
 Future<User> getUser() async {
-  User user = const User(imageP: '', name: '', age: '', phone: '', points: 0);
+  User user = const User(imageP: '', name: '', lastName: '', age: '', phone: '', points: 0);
 
   final snapshot = await userRef.child(userId).get();
   if (snapshot.exists) {
@@ -18,6 +18,7 @@ Future<User> getUser() async {
           imageP:
               'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png',
           name: info.child('name').value as String,
+          lastName: info.child('lastName').value as String,
           age: info.child('age').value as String,
           phone: info.child('phone').value as String,
           points: info.child('points').value as int);

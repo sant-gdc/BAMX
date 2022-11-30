@@ -37,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ProfileWidget(
             imageP: widget.user.imageP,
             name: widget.user.name,
+            lastName: widget.user.lastName,
             age: widget.user.age,
             phone: widget.user.phone,
             points: widget.user.points,

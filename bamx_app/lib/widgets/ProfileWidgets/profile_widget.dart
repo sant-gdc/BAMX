@@ -6,6 +6,7 @@ import '../EventsWidgets/dummy_events.dart';
 class ProfileWidget extends StatelessWidget {
   final String imageP;
   final String name;
+  final String lastName;
   final String age;
   final String phone;
   final int points;
@@ -14,6 +15,7 @@ class ProfileWidget extends StatelessWidget {
     Key? key,
     required this.imageP,
     required this.name,
+    required this.lastName,
     required this.age,
     required this.phone,
     required this.points,
@@ -26,6 +28,17 @@ class ProfileWidget extends StatelessWidget {
         buildImage(),
         buildInformation(),
         buildPointsCard(context),
+        const Padding(padding: EdgeInsets.only(top: 5, bottom: 20)),
+        Container(
+          padding: const EdgeInsets.only(left: 7),
+          alignment: Alignment.bottomLeft,
+          child: const Text(
+            'Eventos Pasados',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.normal, color: Colors.red),
+          ),
+        ),
         SingleChildScrollView(child: VolunteerList(dummyEvents)),
       ],
     );
@@ -49,7 +62,7 @@ class ProfileWidget extends StatelessWidget {
     return Column(
       children: <Widget>[
         Text(
-          name,
+          '$name $lastName',
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,

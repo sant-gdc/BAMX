@@ -22,6 +22,7 @@ class _PPbubbleState extends State<PPbubble> {
         imageP:
             'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lost_main_title.svg/1200px-Lost_main_title.svg.png',
         name: 'name',
+        lastName: 'lasName',
         age: 'age',
         phone: 'phone',
         points: 0);
