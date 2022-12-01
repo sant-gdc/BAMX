@@ -104,6 +104,17 @@ void registerUser(String eventId) async {
 
   if (snapshot.exists && !snapshot.child('events').child(eventId).exists) {
     final userData = snapshot.children.first;
+
+    final pointsSnap = await eventsRef.child(eventId).child('points').get();
+
+    int points = pointsSnap.value as int;
+
+    await userRef
+        .child(userId)
+        .child(userData.key.toString())
+        .child('points')
+        .set(ServerValue.increment(points));
+
     await userRef
         .child(userId)
         .child(userData.key.toString())
