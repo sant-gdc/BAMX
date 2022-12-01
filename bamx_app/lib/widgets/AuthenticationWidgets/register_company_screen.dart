@@ -59,14 +59,12 @@ class _RegisterCompanyScreenState extends State<RegisterCompanyScreen> {
     final Map<String, dynamic> userInfo = {
       'name': nameController.text,
       'email': emailController.text,
-      'password': passwordController.text,
       'vision': visionController.text,
       'contacts': contactsController.text,
     };
     final Map<String, dynamic> userData = {
       'name': nameController.text,
       'email': emailController.text,
-      'password': passwordController.text,
       'user': 'A',
     };
     databaseReference = FirebaseDatabase.instance
