@@ -14,28 +14,25 @@ class PPbubble extends StatefulWidget {
 
   @override
   State<PPbubble> createState() => _PPbubbleState();
-
 }
 
 class _PPbubbleState extends State<PPbubble> {
   User user = const User(
-        imageP:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lost_main_title.svg/1200px-Lost_main_title.svg.png',
-        name: 'name',
-        lastName: 'lasName',
-        age: 'age',
-        phone: 'phone',
-        points: 0);
-    Admin admin = const Admin(
-        imageP:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lost_main_title.svg/1200px-Lost_main_title.svg.png',
-        vision: 'vision',
-        contacts: 'contacts');
+      imageP:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lost_main_title.svg/1200px-Lost_main_title.svg.png',
+      name: 'name',
+      lastName: 'lastName',
+      age: 'age',
+      phone: 'phone',
+      points: 0);
+  Admin admin = const Admin(
+      imageP:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lost_main_title.svg/1200px-Lost_main_title.svg.png',
+      vision: 'vision',
+      contacts: 'contacts');
 
   @override
   Widget build(BuildContext context) {
-    
-
     void fetchData() async {
       if (widget.userType) {
         final Admin adminGet = await getAdmin();
@@ -52,14 +49,19 @@ class _PPbubbleState extends State<PPbubble> {
 
     fetchData();
 
+    void _changeUser(User changedUser, User user) async {
+      changeUser(changedUser, user);
+      fetchData();
+    }
 
     return Column(
       children: [
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    widget.userType ? AdminProfile(admin) : ProfilePage(user)));
+                builder: (context) => widget.userType
+                    ? AdminProfile(admin)
+                    : ProfilePage(user: user, changeUser: _changeUser)));
           },
           child: Container(
             width: 45,

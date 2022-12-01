@@ -11,7 +11,7 @@ class ProfileWidget extends StatelessWidget {
   final String phone;
   final int points;
 
-  ProfileWidget({
+  const ProfileWidget({
     Key? key,
     required this.imageP,
     required this.name,
