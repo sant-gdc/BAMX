@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import './user_api.dart';
 
 import '../models/event.dart';
+import '../models/registeredUser.dart';
 
 DatabaseReference eventsRef = FirebaseDatabase.instance.ref('Events');
 DatabaseReference userRef = FirebaseDatabase.instance.ref('Users');
@@ -40,10 +41,12 @@ Future<List<Event>> getUserEvents() async {
   List<Event> result = [];
   final snapshot = await eventsRef.get();
   final userSnapshot = await userRef.child(userId).get();
+
   String innerID = "";
   if (userSnapshot.exists) {
     innerID = userSnapshot.children.first.key.toString();
   }
+
   if (snapshot.exists) {
     for (var element in snapshot.children) {
       if (userSnapshot
@@ -92,7 +95,7 @@ void addEvent(Event newEvent) async {
   );
 }
 
-void deletePrograms(String id) async {
+void deleteEvents(String id) async {
   await eventsRef.child(id).remove();
 }
 
@@ -127,4 +130,20 @@ void registerEvent(String eventId) async {
         .child('enrolled')
         .set(ServerValue.increment(1));
   }
+}
+
+Future<List<Registereduser>> getRegisteredUsers(String eventID) async {
+  final snapshot = await eventsRef.child(eventID).child('usuarios').get();
+  List<Registereduser> result = [];
+
+  if (snapshot.exists) {
+    for (var element in snapshot.children) {
+      result.add(Registereduser(
+          imageP: element.child('img').value.toString(),
+          name: element.child('nombre').value.toString(),
+          lastName: element.child('apellido').value.toString()));
+    }
+  }
+
+  return result;
 }
