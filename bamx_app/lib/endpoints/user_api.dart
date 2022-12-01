@@ -46,6 +46,7 @@ void changeUser(User changedUser, User user) async {
   }
 }
 
+
 Future<Admin> getAdmin() async {
   Admin admin =
       const Admin(imageP: 'imageP', vision: 'vision', contacts: 'contacts');
@@ -62,4 +63,18 @@ Future<Admin> getAdmin() async {
   }
 
   return admin;
+}
+
+void changeAdmin(Admin changedAdmin, Admin admin) async {
+  final snapshot = await adminRef.child(userId).get();
+  if (snapshot.exists) {
+    final info = snapshot.children.first;
+    if (info.child('user').value == 'A') {
+      await userRef.child(userId).child(info.key.toString()).update({
+        "image": admin.imageP,
+        "vision": changedAdmin.imageP,
+        "contacts": changedAdmin.contacts,
+      });
+    }
+  }
 }

@@ -1,10 +1,9 @@
 import 'package:bamx_app/endpoints/user_api.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../user_preferences.dart';
 import '../../../models/user.dart';
 import '../profile_pic_edit.dart';
-import '../textfield_widget.dart';
 
 class EditProfilePage extends StatefulWidget {
   final String imageP;
@@ -34,6 +33,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final _lastNameController = TextEditingController();
   final _ageController = TextEditingController();
   final _phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text = widget.user.name;
+    _lastNameController.text = widget.user.lastName;
+    _ageController.text = widget.user.age;
+    _phoneController.text = widget.user.phone;
+
+    super.initState();
+  }
 
   User modifyUser() {
     User changedUser = User(
@@ -144,10 +153,38 @@ class _EditProfilePageState extends State<EditProfilePage> {
             Container(
               padding: const EdgeInsets.all(10),
               child: ElevatedButton(
-                onPressed: (() => changeUser(modifyUser(), widget.user)),
-                child: Text(
-                  'Crear Nuevo',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                style: ElevatedButton.styleFrom(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                ),
+                onPressed: (() {
+                  changeUser(modifyUser(), widget.user);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CupertinoAlertDialog(
+                            title: const Text(
+                              '¡Cambiaste tus datos!',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
+                            ),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: const Text('Aceptar'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ));
+                }),
+                child: const Text(
+                  'Guardar',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
               ),
             ),

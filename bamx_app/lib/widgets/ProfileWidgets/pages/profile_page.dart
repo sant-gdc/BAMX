@@ -1,8 +1,6 @@
 import 'package:bamx_app/widgets/ProfileWidgets/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
-import '../user_preferences.dart';
-import '../../../endpoints/user_api.dart';
 import '../../../models/user.dart';
 import '../profile_widget.dart';
 
@@ -16,18 +14,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //late User _userInfo = const User(imageP: 'imageP', name: 'name', age: 'age', phone: 'phone', points: 0);
-
+ 
   @override
-  // void initState() {
-  //   super.initState();
-  //   _fecthData();
-  // }
-
-  // void _fecthData() async {
-  //   final User user = await getUser();
-  //   setState(() => _userInfo = user);
-  // }
 
   Widget build(BuildContext context) {
     return Scaffold(

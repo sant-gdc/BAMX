@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import './pages/profile_page.dart';
 import './pages/admin_page.dart';
-import './user_preferences.dart';
 import '../../models/user.dart';
 import '../../models/admin.dart';
 import '../../endpoints/user_api.dart';
-import './admin_preferences.dart';
 
 class PPbubble extends StatefulWidget {
   final bool userType = false;
@@ -54,13 +52,18 @@ class _PPbubbleState extends State<PPbubble> {
       fetchData();
     }
 
+    void _changeAdmin(Admin changedAdmin, Admin admin) async {
+      changeAdmin(changedAdmin, admin);
+      fetchData();
+    }
+
     return Column(
       children: [
         InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => widget.userType
-                    ? AdminProfile(admin)
+                    ? AdminProfile(admin: admin, changeAdmin: _changeAdmin)
                     : ProfilePage(user: user, changeUser: _changeUser)));
           },
           child: Container(
