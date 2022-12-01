@@ -1,4 +1,31 @@
 PODS:
+  - Braintree/ApplePay (5.6.3):
+    - Braintree/Core
+  - Braintree/Card (5.6.3):
+    - Braintree/Core
+  - Braintree/Core (5.6.3)
+  - Braintree/PaymentFlow (5.6.3):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+  - Braintree/PayPal (5.6.3):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+  - Braintree/PayPalDataCollector (5.6.3)
+  - Braintree/ThreeDSecure (5.6.3):
+    - Braintree/Card
+    - Braintree/PaymentFlow
+  - Braintree/UnionPay (5.6.3):
+    - Braintree/Card
+  - Braintree/Venmo (5.6.3):
+    - Braintree/Core
+  - BraintreeDropIn (9.4.0):
+    - Braintree/ApplePay (~> 5.6.1)
+    - Braintree/Card (~> 5.6.1)
+    - Braintree/Core (~> 5.6.1)
+    - Braintree/PayPal (~> 5.6.1)
+    - Braintree/ThreeDSecure (~> 5.6.1)
+    - Braintree/UnionPay (~> 5.6.1)
+    - Braintree/Venmo (~> 5.6.1)
   - Firebase/Auth (10.2.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.2.0)
@@ -33,6 +60,11 @@ PODS:
     - FirebaseCore (~> 10.0)
     - leveldb-library (~> 1.22)
   - Flutter (1.0.0)
+  - flutter_braintree (1.0.0):
+    - Braintree/ApplePay (~> 5.6.3)
+    - Braintree/PayPal (~> 5.6.3)
+    - BraintreeDropIn (= 9.4.0)
+    - Flutter
   - GoogleUtilities/AppDelegateSwizzler (7.10.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -57,9 +89,12 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
+  - flutter_braintree (from `.symlinks/plugins/flutter_braintree/ios`)
 
 SPEC REPOS:
   trunk:
+    - Braintree
+    - BraintreeDropIn
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -79,8 +114,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_database/ios"
   Flutter:
     :path: Flutter
+  flutter_braintree:
+    :path: ".symlinks/plugins/flutter_braintree/ios"
 
 SPEC CHECKSUMS:
+  Braintree: cef7388a3647515f1e0861e52200c2f3dad0f98f
+  BraintreeDropIn: 89df35f840004affa22ebb8f06b12d20615411bf
   Firebase: a3ea7eba4382afd83808376edb99acdaff078dcf
   firebase_auth: dc7124acfe6adb5823dcc4f3063c6b5ab6f92428
   firebase_core: db1432de826785171029b7c1a26e5b22ce1dd477
@@ -90,11 +129,12 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 091bde13e47bb1c5e9fe397634f3593dc390430f
   FirebaseDatabase: 61b99b5477c29115e9d4006c6b44a8815a3cc3c3
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_braintree: 72276002464c36b1d5a6266fbdb94c0b600e62fd
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   GTMSessionFetcher: c1edebe64e9fb4e8f6415d018edf1fd3eac074a1
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: ae273562e2241d2b1bd4b6d2d349a48b8fe1a2a7
 
 COCOAPODS: 1.11.3

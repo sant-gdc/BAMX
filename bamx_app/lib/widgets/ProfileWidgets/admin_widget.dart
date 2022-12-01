@@ -70,10 +70,13 @@ class AdminWidget extends StatelessWidget {
           ),
         ),
         const Padding(padding: EdgeInsets.all(20)),
-        Text(
-          contacts,
-          style: const TextStyle(
-            fontSize: 15,
+        Container(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: Text(
+            contacts,
+            style: const TextStyle(
+              fontSize: 15,
+            ),
           ),
         ),
         const Padding(padding: EdgeInsets.all(5)),
