@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_braintree/flutter_braintree.dart';
 
 import './volunteer_list.dart';
 import '../EventsWidgets/dummy_events.dart';
@@ -31,7 +33,7 @@ class ProfileWidget extends StatelessWidget {
           buildInformation(),
           buildPointsCard(context),
           const Padding(padding: EdgeInsets.all(5)),
-          buildPayPalButton(),
+          buildPayPalButton(context),
           const Padding(padding: EdgeInsets.only(top: 5, bottom: 20)),
           Container(
             padding: const EdgeInsets.only(left: 7),
@@ -240,12 +242,35 @@ class ProfileWidget extends StatelessWidget {
     );
   }
 
-  Widget buildPayPalButton() {
+  Widget buildPayPalButton(context) {
     return SizedBox(
       height: 40,
       width: 150,
       child: ElevatedButton(
-          onPressed: () async {},
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text(
+                      '¡Gracias por donar!',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                    content: const Text(
+                      'Has donado \$100 al Banco de Alimentos de Guadalajara',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: const Text('Aceptar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  )),
           style: ElevatedButton.styleFrom(
             elevation: 10,
             backgroundColor: const Color.fromARGB(255, 255, 217, 29),
