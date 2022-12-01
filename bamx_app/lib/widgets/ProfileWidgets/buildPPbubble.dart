@@ -5,10 +5,11 @@ import './pages/admin_page.dart';
 import '../../models/user.dart';
 import '../../models/admin.dart';
 import '../../endpoints/user_api.dart';
+import '../../globals.dart';
 
 class PPbubble extends StatefulWidget {
-  final bool userType = false;
-  PPbubble(bool userType, {super.key});
+  final bool isAdmin;
+  PPbubble(this.isAdmin, {super.key});
 
   @override
   State<PPbubble> createState() => _PPbubbleState();
@@ -30,39 +31,50 @@ class _PPbubbleState extends State<PPbubble> {
       contacts: 'contacts');
 
   @override
-  Widget build(BuildContext context) {
-    void fetchData() async {
-      if (widget.userType) {
-        final Admin adminGet = await getAdmin();
-        setState(() {
-          admin = adminGet;
-        });
-      } else {
-        final User userInfo = await getUser();
-        setState(() {
-          user = userInfo;
-        });
-      }
-    }
-
+  void initState() {
+    super.initState();
     fetchData();
+  }
 
-    void _changeUser(User changedUser, User user) async {
-      changeUser(changedUser, user);
-      fetchData();
+  void _changeUser(User changedUser, User user) async {
+    changeUser(changedUser, user);
+    fetchData();
+  }
+
+  void _changeAdmin(Admin changedAdmin, Admin admin) async {
+    changeAdmin(changedAdmin, admin);
+    fetchData();
+  }
+
+  void fetchData() async {
+    if (!mounted) {
+      return;
     }
 
-    void _changeAdmin(Admin changedAdmin, Admin admin) async {
-      changeAdmin(changedAdmin, admin);
-      fetchData();
-    }
+    final String type = await getType();
 
+    if (type == 'A') {
+      final Admin adminGet = await getAdmin();
+      setState(() {
+        admin = adminGet;
+      });
+    } else {
+      final User userInfo = await getUser();
+      setState(() {
+        user = userInfo;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         InkWell(
           onTap: () {
+            fetchData();
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => widget.userType
+                builder: (context) => widget.isAdmin
                     ? AdminProfile(admin: admin, changeAdmin: _changeAdmin)
                     : ProfilePage(user: user, changeUser: _changeUser)));
           },
@@ -74,7 +86,7 @@ class _PPbubbleState extends State<PPbubble> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white, width: 2),
               image: DecorationImage(
-                  image: widget.userType
+                  image: widget.isAdmin
                       ? NetworkImage(admin.imageP)
                       : NetworkImage(user.imageP),
                   fit: BoxFit.fill),
