@@ -120,7 +120,7 @@ void registerEvent(String eventId) async {
     await eventsRef.child(eventId).child('usuarios').child(userId).set(
       {
         "nombre": user.name,
-        "apellido": "Perez",
+        "apellido": user.lastName,
         "img": user.imageP,
       },
     );
