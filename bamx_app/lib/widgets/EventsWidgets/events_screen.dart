@@ -38,7 +38,7 @@ class _EventScreenState extends State<EventScreen> {
 
   void _createEVent(BuildContext context) {
     showModalBottomSheet(
-      isScrollControlled: true,
+      //isScrollControlled: true,
       context: context,
       builder: (_) {
         return GestureDetector(
@@ -116,7 +116,7 @@ class _EventScreenState extends State<EventScreen> {
     final messenger = ScaffoldMessenger.of(context);
 
     try {
-      deletePrograms(id);
+      deleteEvents(id);
       _fetchEvents();
       messenger.showSnackBar(
         const SnackBar(

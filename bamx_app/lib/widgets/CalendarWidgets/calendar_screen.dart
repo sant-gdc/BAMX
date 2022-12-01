@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../endpoints/events_api.dart';
 
-import '../EventsWidgets/dummy_events.dart';
 import '../../models/event.dart';
+
+import '../../globals.dart';
 
 class Calendar_Screen extends StatefulWidget {
   const Calendar_Screen({super.key});
@@ -23,7 +24,12 @@ class _Calendar_ScreenState extends State<Calendar_Screen> {
   }
 
   void _fetchEvents() async {
-    List<Event> newList = await getUserEvents();
+    List<Event> newList = [];
+    if (isAdmin) {
+      newList = await getEvents();
+    } else {
+      newList = await getUserEvents();
+    }
     setState(() {
       _eventList = newList;
     });
@@ -89,6 +95,7 @@ List<Appointment> getAppointments(List<Event> eventList) {
     eventos.add(Appointment(
         startTime: eventList[key].date,
         endTime: eventList[key].date.add(const Duration(hours: 1)),
+        subject: '${eventList[key].title} en ${eventList[key].location}',
         isAllDay: false,
         color: Colors.red));
   });

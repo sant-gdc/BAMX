@@ -9,10 +9,33 @@ class ConfirmAlert extends StatelessWidget {
   const ConfirmAlert(this.header, this.message, this.eventID, {super.key});
 
   void sendUserInfo(BuildContext context) {
+    final messenger = ScaffoldMessenger.of(context);
+
     try {
       registerUser(eventID);
       registerEvent(eventID);
-    } catch (e) {}
+      messenger.showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: StadiumBorder(),
+          margin: EdgeInsets.all(50),
+          content: Text('Registro Exitoso'),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    } finally {
+      messenger.showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          shape: StadiumBorder(),
+          margin: EdgeInsets.all(50),
+          content: Text('No se pudo hacer el Registro o ya está registrado'),
+        ),
+      );
+    }
 
     Navigator.pop(context);
   }

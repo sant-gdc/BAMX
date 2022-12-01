@@ -13,6 +13,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'globals.dart';
+import './endpoints/user_api.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -161,7 +162,7 @@ class _MenuPageState extends State<MenuPage> {
         ),
         leading: Container(
             padding: EdgeInsets.only(left: 20, top: 5),
-            child: PPbubble(isAdmin)),
+            child: PPbubble(isAdmin, key: UniqueKey(),)),
         actions: [
           GestureDetector(
             child: Container(

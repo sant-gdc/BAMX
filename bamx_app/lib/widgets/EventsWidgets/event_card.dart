@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/event.dart';
+
+import './volunteer_list.dart';
 import 'confirm.dart';
 
 class EventCard extends StatelessWidget {
@@ -166,7 +168,16 @@ class EventCard extends StatelessWidget {
                               width: MediaQuery.of(context).size.width * .55,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  //TODO: Modal with volunteer list
+                                  showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (_) {
+                                      return GestureDetector(
+                                          onTap: () {},
+                                          behavior: HitTestBehavior.opaque,
+                                          child: VolunteerList(event.id));
+                                    },
+                                  );
                                 },
                                 child: const Icon(Icons.person),
                               ),

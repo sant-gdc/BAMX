@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import './user_api.dart';
 
 import '../models/event.dart';
+import '../models/registeredUser.dart';
 
 DatabaseReference eventsRef = FirebaseDatabase.instance.ref('Events');
 DatabaseReference userRef = FirebaseDatabase.instance.ref('Users');
@@ -40,10 +41,12 @@ Future<List<Event>> getUserEvents() async {
   List<Event> result = [];
   final snapshot = await eventsRef.get();
   final userSnapshot = await userRef.child(userId).get();
+
   String innerID = "";
   if (userSnapshot.exists) {
     innerID = userSnapshot.children.first.key.toString();
   }
+
   if (snapshot.exists) {
     for (var element in snapshot.children) {
       if (userSnapshot
@@ -92,7 +95,7 @@ void addEvent(Event newEvent) async {
   );
 }
 
-void deletePrograms(String id) async {
+void deleteEvents(String id) async {
   await eventsRef.child(id).remove();
 }
 
@@ -101,6 +104,17 @@ void registerUser(String eventId) async {
 
   if (snapshot.exists && !snapshot.child('events').child(eventId).exists) {
     final userData = snapshot.children.first;
+
+    final pointsSnap = await eventsRef.child(eventId).child('points').get();
+
+    int points = pointsSnap.value as int;
+
+    await userRef
+        .child(userId)
+        .child(userData.key.toString())
+        .child('points')
+        .set(ServerValue.increment(points));
+
     await userRef
         .child(userId)
         .child(userData.key.toString())
@@ -117,7 +131,7 @@ void registerEvent(String eventId) async {
     await eventsRef.child(eventId).child('usuarios').child(userId).set(
       {
         "nombre": user.name,
-        "apellido": "Perez",
+        "apellido": user.lastName,
         "img": user.imageP,
       },
     );
@@ -127,4 +141,20 @@ void registerEvent(String eventId) async {
         .child('enrolled')
         .set(ServerValue.increment(1));
   }
+}
+
+Future<List<Registereduser>> getRegisteredUsers(String eventID) async {
+  final snapshot = await eventsRef.child(eventID).child('usuarios').get();
+  List<Registereduser> result = [];
+
+  if (snapshot.exists) {
+    for (var element in snapshot.children) {
+      result.add(Registereduser(
+          imageP: element.child('img').value.toString(),
+          name: element.child('nombre').value.toString(),
+          lastName: element.child('apellido').value.toString()));
+    }
+  }
+
+  return result;
 }

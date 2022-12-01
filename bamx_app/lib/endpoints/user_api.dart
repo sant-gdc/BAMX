@@ -46,7 +46,6 @@ void changeUser(User changedUser, User user) async {
   }
 }
 
-
 Future<Admin> getAdmin() async {
   Admin admin =
       const Admin(imageP: 'imageP', vision: 'vision', contacts: 'contacts');
@@ -54,14 +53,12 @@ Future<Admin> getAdmin() async {
   final snapshot = await adminRef.child(userId).get();
   if (snapshot.exists) {
     final info = snapshot.children.first;
-    if (info.child('user').value == 'A') {
-      admin = Admin(
-          imageP: 'assets/images/bamx_logo.png',
-          vision: info.child('vision').value as String,
-          contacts: info.child('contacts').value as String);
-    }
+    admin = Admin(
+        imageP:
+            'https://bamx.org.mx/wp-content/plugins/Agile/public/Logo/5e8827daba0aa_logo.png',
+        vision: info.child('vision').value as String,
+        contacts: info.child('contacts').value as String);
   }
-
   return admin;
 }
 
@@ -77,4 +74,15 @@ void changeAdmin(Admin changedAdmin, Admin admin) async {
       });
     }
   }
+}
+
+Future<String> getType() async {
+  String result = '';
+
+  final snapshot = await userRef.child(userId).get();
+  if (snapshot.exists) {
+    final info = snapshot.children.first;
+    result = info.child('user').value.toString();
+  }
+  return result;
 }
