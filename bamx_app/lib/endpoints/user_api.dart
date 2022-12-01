@@ -8,7 +8,8 @@ DatabaseReference userRef = FirebaseDatabase.instance.ref('Users');
 DatabaseReference adminRef = FirebaseDatabase.instance.ref('Admins');
 
 Future<User> getUser() async {
-  User user = const User(imageP: '', name: '', lastName: '', age: '', phone: '', points: 0);
+  User user = const User(
+      imageP: '', name: '', lastName: '', age: '', phone: '', points: 0);
 
   final snapshot = await userRef.child(userId).get();
   if (snapshot.exists) {
@@ -28,6 +29,24 @@ Future<User> getUser() async {
   return user;
 }
 
+void changeUser(User changedUser, User user) async {
+  final snapshot = await userRef.child(userId).get();
+  if (snapshot.exists) {
+    final info = snapshot.children.first;
+    if (info.child('user').value == 'U') {
+      await userRef.child(userId).child(info.key.toString()).update({
+        "image": user.imageP,
+        "name": changedUser.name,
+        "lastName": changedUser.lastName,
+        "age": changedUser.age,
+        "phone": changedUser.phone,
+        "points": user.points,
+      });
+    }
+  }
+}
+
+
 Future<Admin> getAdmin() async {
   Admin admin =
       const Admin(imageP: 'imageP', vision: 'vision', contacts: 'contacts');
@@ -44,4 +63,18 @@ Future<Admin> getAdmin() async {
   }
 
   return admin;
+}
+
+void changeAdmin(Admin changedAdmin, Admin admin) async {
+  final snapshot = await adminRef.child(userId).get();
+  if (snapshot.exists) {
+    final info = snapshot.children.first;
+    if (info.child('user').value == 'A') {
+      await userRef.child(userId).child(info.key.toString()).update({
+        "image": admin.imageP,
+        "vision": changedAdmin.imageP,
+        "contacts": changedAdmin.contacts,
+      });
+    }
+  }
 }

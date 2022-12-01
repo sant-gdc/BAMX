@@ -1,36 +1,46 @@
+import 'package:bamx_app/widgets/ProfileWidgets/pages/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 
-import '../appBar_widget.dart';
-import '../user_preferences.dart';
-import '../../../endpoints/user_api.dart';
 import '../../../models/user.dart';
 import '../profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   final User user;
-  const ProfilePage(this.user, {super.key});
+  final Function changeUser;
+  const ProfilePage({super.key, required this.user, required this.changeUser});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  //late User _userInfo = const User(imageP: 'imageP', name: 'name', age: 'age', phone: 'phone', points: 0);
-
+ 
   @override
-  // void initState() {
-  //   super.initState();
-  //   _fecthData();
-  // }
-
-  // void _fecthData() async {
-  //   final User user = await getUser();
-  //   setState(() => _userInfo = user);
-  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context, false),
+      appBar: AppBar(
+        leading: const BackButton(),
+        title: const Text('BAMX'),
+        backgroundColor: Colors.red,
+        elevation: 0,
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditProfilePage(
+                          name: widget.user.name,
+                          lastName: widget.user.lastName,
+                          age: widget.user.age,
+                          phone: widget.user.phone,
+                          imageP: widget.user.imageP,
+                          changeUser: widget.changeUser,
+                          user: widget.user,
+                        )));
+              },
+              icon: const Icon(Icons.settings)),
+        ],
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

@@ -13,7 +13,7 @@ class ProfileWidget extends StatelessWidget {
   final String phone;
   final int points;
 
-  ProfileWidget({
+  const ProfileWidget({
     Key? key,
     required this.imageP,
     required this.name,
@@ -72,6 +72,7 @@ class ProfileWidget extends StatelessWidget {
       children: <Widget>[
         Text(
           '$name $lastName',
+          textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
